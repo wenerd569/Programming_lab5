@@ -1,3 +1,4 @@
+/home/wenerd/Documents/Programming_lab5/build/CMakeFiles/prog5lib.dir
 /home/wenerd/Documents/Programming_lab5/build/CMakeFiles/ProgLab5.dir
 /home/wenerd/Documents/Programming_lab5/build/CMakeFiles/edit_cache.dir
 /home/wenerd/Documents/Programming_lab5/build/CMakeFiles/rebuild_cache.dir

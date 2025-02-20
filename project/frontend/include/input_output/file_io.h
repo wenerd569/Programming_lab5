@@ -1,6 +1,6 @@
 #include <fstream>
-#include "interface/reader.h"
-#include "interface/writer.h"
+#include "interface/i_reader.h"
+#include "interface/i_writer.h"
 
 class FileReader : public IReader
 {

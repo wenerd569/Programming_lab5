@@ -1,4 +1,4 @@
-#include "../external_libs/magic_enum.hpp"
+#include <magic_enum.hpp>
 #include "../common/io_interface.h"
 
 
@@ -16,7 +16,7 @@ public:
     virtual ~Form();
 
     std::optional<std::string> askString(std::string fieldName, std::string restriction,
-                                        bool canBeEmpty, std::function<bool(const std::string&)> validate = true)
+                bool canBeEmpty, std::function<bool(const std::string&)> validate = [](std::string&) -> bool {return true})
     {
         while (true)
         {
@@ -27,14 +27,14 @@ public:
             } else if (inp.empty() && canBeEmpty){
                 return nullptr;
             } else {
-                io.write("Некорректный формат\n");
+                io->write("Некорректный формат\n");
             }   
         }
     }
 
     template <typename N, typename = std::enable_if_t<std::is_arithmetic_v<N>>>
     std::optional<N> askNum(std::string fieldName, std::string restriction,
-                            bool canBeEmpty, std::function<bool(N)> validate = true)
+                            bool canBeEmpty, std::function<bool(N)> validate = [](N) -> bool {return true})
     {
         while (true)
         {
@@ -49,13 +49,13 @@ public:
             } else if (inp.empty() && canBeEmpty){
                 return nullptr;
             } else {
-                io.write("Некорректный формат\n");
+                io->write("Некорректный формат\n");
             }
         }
     }
 
     template <typename EnumType, typename = std::enable_if_t<std::is_enum<EnumType>::value>>
-    std::optional<N> askEnum(std::string fieldName, bool canBeEmpty)
+    std::optional<EnumType> askEnum(std::string fieldName, bool canBeEmpty)
     {
         while (true)
         {
@@ -73,7 +73,7 @@ public:
             } else if (inp.empty() && canBeEmpty){
                 return nullptr;
             } else {
-                io.write("Некорректный формат\n");
+                io->write("Некорректный формат\n");
             }
         }
     }

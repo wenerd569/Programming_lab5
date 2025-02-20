@@ -1,18 +1,14 @@
-#include "../common/id_manager.h"
-#include "../common/date_manager.h"
-#include "../structures/person.h"
+#include "person"
 #include "form.h"
 #include "coordinate_form.h"
 #include "location_form.h"
 
-class PersonForm : public Form<Person>{
-    IdManager* idManager;
-    DateManager* dateManager;
+class PersonForm : public Form<>{
     public:
-    PersonForm(IOInterface* ioInterface, IdManager* idManager, DateManager* dateManager) :
-    Form{ioInterface}, idManager{idManager}, dateManager{dateManager} {};
+    PersonForm(IOInterface* ioInterface) :
+    Form{ioInterface} {};
     
-    Person build() override {
+    Pe build() override {
         return Person{
             idManager->getNext(),
             askString("name", "не может быть null или пустой", false).value(),

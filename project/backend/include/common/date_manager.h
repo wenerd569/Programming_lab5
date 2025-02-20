@@ -1,6 +1,7 @@
 #include <chrono>
+#include "i_date_manager.h"
 
-class DateManager{
+class DateManager : public IDateManager{
     public:
     std::chrono::year_month_day getDate(){
         auto now = std::chrono::system_clock::now();

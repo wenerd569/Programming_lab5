@@ -1,7 +1,7 @@
 #include "../common/console_io.h"
 #include "../common/file_io.h"
-#include "../interface/reader.h"
-#include "../interface/writer.h"
+#include "../interface/i_reader.h"
+#include "../interface/i_writer.h"
 
 
 class IOInterface

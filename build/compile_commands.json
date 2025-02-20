@@ -1,32 +1,32 @@
 [
 {
   "directory": "/home/wenerd/Documents/Programming_lab5/build",
-  "command": "usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include  -Wall -Wextra -std:c++latest -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/console_reader.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/console_reader.cpp",
+  "command": "/usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -I/home/wenerd/Documents/Programming_lab5/backend -I/home/wenerd/Documents/Programming_lab5/common -I/home/wenerd/Documents/Programming_lab5/frontend -g -std=gnu++23 -o CMakeFiles/prog5lib.dir/src/console_reader.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/console_reader.cpp",
   "file": "/home/wenerd/Documents/Programming_lab5/src/console_reader.cpp",
-  "output": "CMakeFiles/ProgLab5.dir/src/console_reader.cpp.o"
+  "output": "CMakeFiles/prog5lib.dir/src/console_reader.cpp.o"
 },
 {
   "directory": "/home/wenerd/Documents/Programming_lab5/build",
-  "command": "usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include  -Wall -Wextra -std:c++latest -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/main.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/main.cpp",
-  "file": "/home/wenerd/Documents/Programming_lab5/src/main.cpp",
-  "output": "CMakeFiles/ProgLab5.dir/src/main.cpp.o"
-},
-{
-  "directory": "/home/wenerd/Documents/Programming_lab5/build",
-  "command": "usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include  -Wall -Wextra -std:c++latest -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/person.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/person.cpp",
+  "command": "/usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -I/home/wenerd/Documents/Programming_lab5/backend -I/home/wenerd/Documents/Programming_lab5/common -I/home/wenerd/Documents/Programming_lab5/frontend -g -std=gnu++23 -o CMakeFiles/prog5lib.dir/src/person.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/person.cpp",
   "file": "/home/wenerd/Documents/Programming_lab5/src/person.cpp",
-  "output": "CMakeFiles/ProgLab5.dir/src/person.cpp.o"
+  "output": "CMakeFiles/prog5lib.dir/src/person.cpp.o"
 },
 {
   "directory": "/home/wenerd/Documents/Programming_lab5/build",
-  "command": "usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include  -Wall -Wextra -std:c++latest -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/program.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/program.cpp",
+  "command": "/usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -I/home/wenerd/Documents/Programming_lab5/backend -I/home/wenerd/Documents/Programming_lab5/common -I/home/wenerd/Documents/Programming_lab5/frontend -g -std=gnu++23 -o CMakeFiles/prog5lib.dir/src/program.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/program.cpp",
   "file": "/home/wenerd/Documents/Programming_lab5/src/program.cpp",
-  "output": "CMakeFiles/ProgLab5.dir/src/program.cpp.o"
+  "output": "CMakeFiles/prog5lib.dir/src/program.cpp.o"
 },
 {
   "directory": "/home/wenerd/Documents/Programming_lab5/build",
-  "command": "usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include  -Wall -Wextra -std:c++latest -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/serializer.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/serializer.cpp",
+  "command": "/usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -I/home/wenerd/Documents/Programming_lab5/backend -I/home/wenerd/Documents/Programming_lab5/common -I/home/wenerd/Documents/Programming_lab5/frontend -g -std=gnu++23 -o CMakeFiles/prog5lib.dir/src/serializer.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/serializer.cpp",
   "file": "/home/wenerd/Documents/Programming_lab5/src/serializer.cpp",
-  "output": "CMakeFiles/ProgLab5.dir/src/serializer.cpp.o"
+  "output": "CMakeFiles/prog5lib.dir/src/serializer.cpp.o"
+},
+{
+  "directory": "/home/wenerd/Documents/Programming_lab5/build",
+  "command": "/usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -I/home/wenerd/Documents/Programming_lab5/backend -I/home/wenerd/Documents/Programming_lab5/common -I/home/wenerd/Documents/Programming_lab5/frontend -g -o CMakeFiles/ProgLab5.dir/main.cpp.o -c /home/wenerd/Documents/Programming_lab5/main.cpp",
+  "file": "/home/wenerd/Documents/Programming_lab5/main.cpp",
+  "output": "CMakeFiles/ProgLab5.dir/main.cpp.o"
 }
 ]

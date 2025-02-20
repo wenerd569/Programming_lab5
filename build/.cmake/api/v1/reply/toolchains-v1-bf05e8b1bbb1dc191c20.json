@@ -79,7 +79,7 @@
 						"gcc"
 					]
 				},
-				"path" : "usr/bin/clang++",
+				"path" : "/usr/bin/clang++",
 				"version" : "18.1.8"
 			},
 			"language" : "CXX",

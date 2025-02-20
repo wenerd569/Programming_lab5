@@ -1,9 +1,10 @@
-#include <../interface/command.h>
+#include "command.h"
 
-class AddCommand : public Icommand{
+class AddCommand : public Command{
+
     public:
-    execute(std::vector<std::string>& args) override{
-        
+    void execute(std::vector<std::string>& args) override{
+        command->
     }
     
     std::string getDescription() override{
