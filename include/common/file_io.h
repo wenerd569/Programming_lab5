@@ -1,3 +1,5 @@
+#pragma once
+
 #include <fstream>
 #include "interface/reader.h"
 #include "interface/writer.h"
@@ -6,15 +8,9 @@ class FileReader : public IReader
 {
     std::ifstream file;
 public:
-    FileReader(std::string filename) : file{filename} {
-    }
+    FileReader(std::string filename);
 
-
-    std::string readline() override {
-        std::string res;
-        std::getline(file, res);
-        return res;
-    }
+    std::string readline() override;
 };
 
 
@@ -22,10 +18,7 @@ class FileWriter : public IWriter
 {
     std::ofstream file;
 public:
-    FileWriter(std::string filename) : file{filename} {
-    }
+    FileWriter(std::string filename);
 
-    void write(const std::string& text) override {
-        file << text;
-    }
+    void write(const std::string& text) override;
 };

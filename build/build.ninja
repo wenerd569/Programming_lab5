@@ -49,37 +49,23 @@ cmake_ninja_workdir = /home/wenerd/Documents/Programming_lab5/build/
 
 build cmake_object_order_depends_target_ProgLab5: phony || .
 
-build CMakeFiles/ProgLab5.dir/src/console_reader.cpp.o: CXX_COMPILER__ProgLab5_unscanned_Debug /home/wenerd/Documents/Programming_lab5/src/console_reader.cpp || cmake_object_order_depends_target_ProgLab5
-  DEP_FILE = CMakeFiles/ProgLab5.dir/src/console_reader.cpp.o.d
-  FLAGS = -Wall -Wextra -std:c++latest -g -std=gnu++23
-  INCLUDES = -I/home/wenerd/Documents/Programming_lab5/include
-  OBJECT_DIR = CMakeFiles/ProgLab5.dir
-  OBJECT_FILE_DIR = CMakeFiles/ProgLab5.dir/src
-
 build CMakeFiles/ProgLab5.dir/src/main.cpp.o: CXX_COMPILER__ProgLab5_unscanned_Debug /home/wenerd/Documents/Programming_lab5/src/main.cpp || cmake_object_order_depends_target_ProgLab5
   DEP_FILE = CMakeFiles/ProgLab5.dir/src/main.cpp.o.d
-  FLAGS = -Wall -Wextra -std:c++latest -g -std=gnu++23
-  INCLUDES = -I/home/wenerd/Documents/Programming_lab5/include
-  OBJECT_DIR = CMakeFiles/ProgLab5.dir
-  OBJECT_FILE_DIR = CMakeFiles/ProgLab5.dir/src
-
-build CMakeFiles/ProgLab5.dir/src/person.cpp.o: CXX_COMPILER__ProgLab5_unscanned_Debug /home/wenerd/Documents/Programming_lab5/src/person.cpp || cmake_object_order_depends_target_ProgLab5
-  DEP_FILE = CMakeFiles/ProgLab5.dir/src/person.cpp.o.d
-  FLAGS = -Wall -Wextra -std:c++latest -g -std=gnu++23
+  FLAGS = -g -std=gnu++23
   INCLUDES = -I/home/wenerd/Documents/Programming_lab5/include
   OBJECT_DIR = CMakeFiles/ProgLab5.dir
   OBJECT_FILE_DIR = CMakeFiles/ProgLab5.dir/src
 
 build CMakeFiles/ProgLab5.dir/src/program.cpp.o: CXX_COMPILER__ProgLab5_unscanned_Debug /home/wenerd/Documents/Programming_lab5/src/program.cpp || cmake_object_order_depends_target_ProgLab5
   DEP_FILE = CMakeFiles/ProgLab5.dir/src/program.cpp.o.d
-  FLAGS = -Wall -Wextra -std:c++latest -g -std=gnu++23
+  FLAGS = -g -std=gnu++23
   INCLUDES = -I/home/wenerd/Documents/Programming_lab5/include
   OBJECT_DIR = CMakeFiles/ProgLab5.dir
   OBJECT_FILE_DIR = CMakeFiles/ProgLab5.dir/src
 
 build CMakeFiles/ProgLab5.dir/src/serializer.cpp.o: CXX_COMPILER__ProgLab5_unscanned_Debug /home/wenerd/Documents/Programming_lab5/src/serializer.cpp || cmake_object_order_depends_target_ProgLab5
   DEP_FILE = CMakeFiles/ProgLab5.dir/src/serializer.cpp.o.d
-  FLAGS = -Wall -Wextra -std:c++latest -g -std=gnu++23
+  FLAGS = -g -std=gnu++23
   INCLUDES = -I/home/wenerd/Documents/Programming_lab5/include
   OBJECT_DIR = CMakeFiles/ProgLab5.dir
   OBJECT_FILE_DIR = CMakeFiles/ProgLab5.dir/src
@@ -92,8 +78,8 @@ build CMakeFiles/ProgLab5.dir/src/serializer.cpp.o: CXX_COMPILER__ProgLab5_unsca
 #############################################
 # Link the executable ProgLab5
 
-build ProgLab5: CXX_EXECUTABLE_LINKER__ProgLab5_Debug CMakeFiles/ProgLab5.dir/src/console_reader.cpp.o CMakeFiles/ProgLab5.dir/src/main.cpp.o CMakeFiles/ProgLab5.dir/src/person.cpp.o CMakeFiles/ProgLab5.dir/src/program.cpp.o CMakeFiles/ProgLab5.dir/src/serializer.cpp.o
-  FLAGS = -Wall -Wextra -std:c++latest -g
+build ProgLab5: CXX_EXECUTABLE_LINKER__ProgLab5_Debug CMakeFiles/ProgLab5.dir/src/main.cpp.o CMakeFiles/ProgLab5.dir/src/program.cpp.o CMakeFiles/ProgLab5.dir/src/serializer.cpp.o
+  FLAGS = -g
   OBJECT_DIR = CMakeFiles/ProgLab5.dir
   POST_BUILD = :
   PRE_LINK = :

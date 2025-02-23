@@ -1,23 +1,16 @@
-#include <string>
 #include <chrono>
-#include <optional>
-#include "coordinate.h"
-#include "location.h"
-#include "color.h"
-#include "country.h"
+#include "person_precursor.h"
 
-class Person {
+struct Person : public PersonPrecursor{
     long id; //>0, uniq, auto
-    std::string name; //
-    Coordinate coordinate; //
     std::chrono::year_month_day creationDate; //auto
-    double height; //>0
-    std::optional<Color> eyeColor; //null
-    Color hairColor; //
-    Country nationality; //
-    std::optional<Location> location; //null
     
     public:
     Person(long id, std::string name, Coordinate coordinate, std::chrono::year_month_day creationDate, double height, std::optional<Color> eyeColor, Color hairColor, Country nationality, std::optional<Location> location) :
-    id{id}, name{name}, coordinate{coordinate}, creationDate{creationDate}, height{height}, eyeColor{eyeColor}, hairColor{hairColor}, nationality{nationality}, location{location} {}
+    PersonPrecursor{name, coordinate, height, eyeColor, hairColor, nationality, location}, id{id}, creationDate{creationDate} {}
+
+    Person(PersonPrecursor prePerson, long id, std::chrono::year_month_day creationDate) :
+    PersonPrecursor{prePerson}, id{id}, creationDate{creationDate} {};
+
+    std::string toString();
 };

@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.10"
+						"string" : "3.20"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "ProgLab5::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-ProgLab5-Debug-0981ac2001d1f79357d0.json",
+					"jsonFile" : "target-ProgLab5-Debug-0306fb66216907de3d18.json",
 					"name" : "ProgLab5",
 					"projectIndex" : 0
 				}

@@ -1,20 +1,19 @@
+#pragma once
+
 #include <unordered_map>
 #include <string>
-#include "../interface/command.h"
-#include "../common/.h"
+#include "commands/commands.h"
 
+class Command;
 
 
 class CommandManager{
-    std::unordered_map<std::string, ICommand> commands;
-    
-    public:
-    
-    void execute(){
-        
-    }
+protected:
+    std::unordered_map<std::string, Command*> commands;
+public:
+    void execute(std::string& line);
+    void addCommand(Command* coomand, std::string cmmandName);
 
-    void addCommand(ICommand& coomand, std::string cmmandName){
-        commands[commandName] = command; //!!!!!!!!!!!
-    }
-}
+    std::unordered_map<std::string, Command*>::const_iterator begin();
+    std::unordered_map<std::string, Command*>::const_iterator end();
+};
