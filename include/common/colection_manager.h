@@ -1,3 +1,4 @@
+#include <chrono>
 #include <cmath>
 #include <vector>
 #include <map>
@@ -5,18 +6,24 @@
 #include "common/date_manager.h"
 #include "common/id_manager.h"
 #include "structures/person.h"
+#include "structures/collection_info.h"
 
 class CollectionManager
 {
     std::vector<Person> persons;
     IdManager idManager;
     DateManager dateManager;
+
+    std::string type;
+    std::chrono::year_month_day initDate;
 public:
     CollectionManager();
     ~CollectionManager();
 
     void save();
     void load();
+
+    CollectionInfo getInfo();
 
     void add(PersonPrecursor& prePerson);
     void remove(long id);

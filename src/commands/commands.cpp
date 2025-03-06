@@ -52,8 +52,8 @@ bool getZeroArg(std::vector<std::string>& args, IOInterface* io){
 
 
 
-
-
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 
 void HelpCommand::execute(std::vector<std::string>& args){
     if (!getZeroArg(args, io)) return;
@@ -69,6 +69,9 @@ std::string HelpCommand::getDescription(){
 
 void InfoCommand::execute(std::vector<std::string>& args){
     if (!getZeroArg(args, io)) return;
+    CollectionInfo info = collectionManager->getInfo();
+    json jsonInfo = info;
+    io->write(json::dump());
 }
 std::string InfoCommand::getDescription(){
     return " : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)";
@@ -77,7 +80,7 @@ std::string InfoCommand::getDescription(){
 
 void ShowCommand::execute(std::vector<std::string>& args){
     if (!getZeroArg(args, io)) return;
-    
+    for ()
 }
 std::string Show::getDescription(){
     return " : вывести в стандартный поток вывода все элементы коллекции в строковом представлении";

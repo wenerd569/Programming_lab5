@@ -1,0 +1,6 @@
+[submodule "external_libs/nlohmann"]
+	path = external_libs/nlohmann
+	url = https://github.com/nlohmann/json.git
+[submodule "external_libs/magic_enum"]
+	path = external_libs/magic_enum
+	url = https://github.com/Neargye/magic_enum.git

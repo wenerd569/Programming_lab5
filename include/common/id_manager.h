@@ -8,4 +8,7 @@ class IdManager{
     long getNext(){
         return ++last_id;
     }
+    long getLast(){
+        return  last_id;
+    }
 };

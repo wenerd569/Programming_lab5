@@ -1,7 +1,7 @@
 #pragma once
 
 #include "forms/form.h"
-#include "external_libs/magic_enum.hpp"
+#include "magic_enum.hpp"
 
 template<typename T>
 Form<T>::Form(IOInterface* ioInterface, const char* T_name) :

@@ -3,12 +3,19 @@
 
 #include <common/colection_manager.h>
 
+
 Person CollectionManager::createPerson(PersonPrecursor& prePerson){
     return Person(prePerson, idManager.getNext(), dateManager.getDate());    
 }
 
 
-
+CollectionInfo CollectionManager::getInfo(){
+    return CollectionInfo{
+        type,
+        initDate,
+        persons.size(),
+        idManager.getLast()};
+}
 
 void CollectionManager::add(PersonPrecursor& prePerson){
     persons.push_back(createPerson(prePerson));

@@ -11,6 +11,5 @@ struct Person : public PersonPrecursor{
 
     Person(PersonPrecursor prePerson, long id, std::chrono::year_month_day creationDate) :
     PersonPrecursor{prePerson}, id{id}, creationDate{creationDate} {};
-
-    std::string toString();
+    Person();
 };

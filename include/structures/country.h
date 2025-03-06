@@ -4,3 +4,4 @@ enum Country{
     ITALY,
     NORTH_KOREA
 };
+

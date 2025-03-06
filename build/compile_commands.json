@@ -1,19 +1,19 @@
 [
 {
   "directory": "/home/wenerd/Documents/Programming_lab5/build",
-  "command": "usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/main.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/main.cpp",
+  "command": "/usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -I/home/wenerd/Documents/Programming_lab5/external_libs/magic_enum/include/magic_enum -I/home/wenerd/Documents/Programming_lab5/external_libs/nlohmann/include/nlohmann -I/home/wenerd/Documents/Programming_lab5/external_libs/magic_enum/include -I/home/wenerd/Documents/Programming_lab5/external_libs/nlohmann/include -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/main.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/main.cpp",
   "file": "/home/wenerd/Documents/Programming_lab5/src/main.cpp",
   "output": "CMakeFiles/ProgLab5.dir/src/main.cpp.o"
 },
 {
   "directory": "/home/wenerd/Documents/Programming_lab5/build",
-  "command": "usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/program.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/program.cpp",
+  "command": "/usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -I/home/wenerd/Documents/Programming_lab5/external_libs/magic_enum/include/magic_enum -I/home/wenerd/Documents/Programming_lab5/external_libs/nlohmann/include/nlohmann -I/home/wenerd/Documents/Programming_lab5/external_libs/magic_enum/include -I/home/wenerd/Documents/Programming_lab5/external_libs/nlohmann/include -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/program.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/program.cpp",
   "file": "/home/wenerd/Documents/Programming_lab5/src/program.cpp",
   "output": "CMakeFiles/ProgLab5.dir/src/program.cpp.o"
 },
 {
   "directory": "/home/wenerd/Documents/Programming_lab5/build",
-  "command": "usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/serializer.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/serializer.cpp",
+  "command": "/usr/bin/clang++ -I/home/wenerd/Documents/Programming_lab5/include -I/home/wenerd/Documents/Programming_lab5/external_libs/magic_enum/include/magic_enum -I/home/wenerd/Documents/Programming_lab5/external_libs/nlohmann/include/nlohmann -I/home/wenerd/Documents/Programming_lab5/external_libs/magic_enum/include -I/home/wenerd/Documents/Programming_lab5/external_libs/nlohmann/include -g -std=gnu++23 -o CMakeFiles/ProgLab5.dir/src/serializer.cpp.o -c /home/wenerd/Documents/Programming_lab5/src/serializer.cpp",
   "file": "/home/wenerd/Documents/Programming_lab5/src/serializer.cpp",
   "output": "CMakeFiles/ProgLab5.dir/src/serializer.cpp.o"
 }

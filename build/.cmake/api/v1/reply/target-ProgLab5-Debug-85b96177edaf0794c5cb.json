@@ -12,6 +12,8 @@
 		[
 			"add_executable",
 			"include_directories",
+			"target_include_directories",
+			"target_link_libraries",
 			"target_compile_features"
 		],
 		"files" : 
@@ -38,6 +40,30 @@
 			{
 				"command" : 2,
 				"file" : 0,
+				"line" : 19,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 17,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 0,
 				"line" : 11,
 				"parent" : 0
 			}
@@ -57,6 +83,22 @@
 				{
 					"backtrace" : 2,
 					"path" : "/home/wenerd/Documents/Programming_lab5/include"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/wenerd/Documents/Programming_lab5/external_libs/magic_enum/include/magic_enum"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/home/wenerd/Documents/Programming_lab5/external_libs/nlohmann/include/nlohmann"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/home/wenerd/Documents/Programming_lab5/external_libs/magic_enum/include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/home/wenerd/Documents/Programming_lab5/external_libs/nlohmann/include"
 				}
 			],
 			"language" : "CXX",
@@ -64,7 +106,8 @@
 			{
 				"backtraces" : 
 				[
-					3
+					7,
+					6
 				],
 				"standard" : "23"
 			},

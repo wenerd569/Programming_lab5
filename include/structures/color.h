@@ -8,3 +8,4 @@ enum Color
     GREEN,
     BROWN
 };
+
