@@ -1,11 +1,11 @@
 
-class IdManager{
+class IdManager {
     long lastId;
 
-    public:
+public:
     IdManager();
     IdManager(long last_id);
-    
-    long getNext();
-    long getLast();
+
+    long getNext ();
+    long getLast ();
 };

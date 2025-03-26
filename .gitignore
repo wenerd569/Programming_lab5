@@ -31,6 +31,10 @@
 *.out
 *.app
 
+# Other
+cland_trace.json
+compile_commands.json
+
 # Folder
 build/
 out/

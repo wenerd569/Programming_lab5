@@ -1,12 +1,10 @@
 #pragma once
 
-struct Coordinate
-{
+struct Coordinate {
     double x;
     int y;
-    
-    public:
-    Coordinate(double x, int y) :
-    x{x}, y{y} {};
+
+public:
+    Coordinate(double x, int y) : x { x }, y { y } {};
     Coordinate() {};
 };

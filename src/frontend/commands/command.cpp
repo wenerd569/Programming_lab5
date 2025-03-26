@@ -1,17 +1,22 @@
 
+#include "frontend/commands/command.hpp"
 #include <cmath>
 #include <format>
-#include <string>
-#include "frontend/commands/command.hpp"
 #include <magic_enum/magic_enum.hpp>
+#include <string>
 #include <utility>
 #include <vector>
 
-Command::Command(std::shared_ptr<IOInterface> ioInterface, std::shared_ptr<CommandManager> comandManager, std::shared_ptr<CollectionManager> collectionManager) :
-    io{ioInterface}, commandManager{comandManager}, collectionManager{collectionManager} {};
+Command::Command(std::shared_ptr<IOInterface> ioInterface,
+                 std::shared_ptr<CommandManager> comandManager,
+                 std::shared_ptr<CollectionManager> collectionManager)
+    : io { ioInterface },
+      commandManager { comandManager },
+      collectionManager { collectionManager } {};
 
-bool Command::getOneStringArg(std::vector<std::string>& args, std::string &res){
-    if (args.size() != 1){
+bool Command::getOneStringArg(std::vector<std::string> &args, std::string &res)
+{
+    if ( args.size() != 1 ) {
         io->writeError("Данная функция принимает один строковый аргумент");
         return false;
     }
@@ -19,46 +24,43 @@ bool Command::getOneStringArg(std::vector<std::string>& args, std::string &res){
     return true;
 }
 
-
-
-bool Command::getZeroArg(std::vector<std::string>& args){
-    if (args.size() != 0){
+bool Command::getZeroArg(std::vector<std::string> &args)
+{
+    if ( args.size() != 0 ) {
         io->writeError("Данная функция не принимает аргументов");
         return false;
     }
     return true;
 }
 
-
-void Command::printPersonVector(Response<std::vector<Person>> response){
-    if (response.getStatusCode() == Response<std::vector<Person>>::OK){
+void Command::printPersonVector(Response<std::vector<Person>> response)
+{
+    if ( response.getStatusCode() == Response<std::vector<Person>>::OK ) {
         io->write("Список персон:\n");
-        for (Person person : response.getData()){
+        for ( Person person : response.getData() ) {
             io->write(toString(person) + '\n');
         }
-    } else{
+    } else {
         printStatus(std::move(response));
     }
 }
 
-
-
-
-std::string Command::toString(Person p){
+std::string Command::toString(Person p)
+{
     std::string coordinate = std::format("x: {}, y: {}", p.coordinate.x, p.coordinate.y);
     std::string location = "";
-    if (p.location.has_value()){
+    if ( p.location.has_value() ) {
         location = std::format("x: {}, y: {}, z: {}", p.location->x, p.location->y, p.location->z);
     }
     std::string eyeColor = "none";
-    if (p.eyeColor.has_value()){
+    if ( p.eyeColor.has_value() ) {
         eyeColor = magic_enum::enum_name(p.eyeColor.value());
     }
     std::string hairColor = (std::string)magic_enum::enum_name(p.hairColor);
     std::string nationality = (std::string)magic_enum::enum_name(p.nationality);
 
     std::string res = std::format(
-R"(id: {}
+        R"(id: {}
 creationDate: {}
 name: {}
 coordinate: ({})
@@ -68,39 +70,19 @@ hairVolor: {}
 nationality: {}
 location : ({})
 )",
-p.id,
-p.creationDate,
-p.name,
-coordinate,
-p.height,
-eyeColor,
-magic_enum::enum_name(p.hairColor),
-magic_enum::enum_name(p.nationality),
-location
-);
-    return  res;
+        p.id, p.creationDate, p.name, coordinate, p.height, eyeColor,
+        magic_enum::enum_name(p.hairColor), magic_enum::enum_name(p.nationality), location);
+    return res;
 }
 
-std::string Command::toString(CollectionInfo info){
+std::string Command::toString(CollectionInfo info)
+{
     std::string res = std::format(
-R"(initialDate: {}
+        R"(initialDate: {}
 lastId: {}
 size: {}
 type: {}
 )",
-std::format("{:%Y-%m-%d}", info.initialDate),
-info.lastId,
-info.size,
-info.type);
-        return res;
+        std::format("{:%Y-%m-%d}", info.initialDate), info.lastId, info.size, info.type);
+    return res;
 }
-
-
-// std::string name; //
-// Coordinate coordinate; //
-// double height; //>0
-// std::optional<Color> eyeColor; //null
-// Color hairColor; //
-// Country nationality; //
-// std::optional<Location> location; //null
-    

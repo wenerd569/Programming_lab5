@@ -1,45 +1,46 @@
+#include "common/from_to_json.hpp"
 #include <fstream>
-#include <iostream>
 #include <ios>
+#include <iostream>
+#include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
 #include <ostream>
-#include <nlohmann/json.hpp>
 #include <utility>
-#include "common/from_to_json.hpp"
 
 #include "backend/collection_serializer.hpp"
 
 using json = nlohmann::json;
 
-CollectionSerializer::CollectionSerializer(std::filesystem::path filePath) : filePath(filePath) {}
+CollectionSerializer::CollectionSerializer(std::filesystem::path filePath) : filePath(filePath) { }
 
-void CollectionSerializer::serialize(std::vector<Person>& persons, CollectionInfo& info){
+void CollectionSerializer::serialize(std::vector<Person> &persons, CollectionInfo &info)
+{
     std::ofstream file = std::ofstream(filePath, std::ios::out | std::ios::trunc);
-    if (!file){
+    if ( ! file ) {
         throw std::ios_base::failure("Не удаётся открыть файл колекции");
     }
 
-    json res = json{{"collection", persons}, {"collectionInfo", info}};
+    json res = json { { "collection", persons }, { "collectionInfo", info } };
     file << res.dump() << std::endl;
     file.close();
 }
 
-
-std::pair<std::vector<Person>, std::optional<CollectionInfo>> CollectionSerializer::deserialize(){
+std::pair<std::vector<Person>, std::optional<CollectionInfo>> CollectionSerializer::deserialize()
+{
     std::ifstream file = std::ifstream(filePath, std::ios::in);
-    if (!file){
+    if ( ! file ) {
         throw std::ios_base::failure("Не удаётся открыть файл колекции");
     }
     json data;
-    try{
+    try {
         data = json::parse(file);
-    } catch (json::parse_error& e){
+    } catch ( json::parse_error &e ) {
     }
     file.close();
 
     std::optional<CollectionInfo> nullInfo;
-    
-    if (data.contains("collectionInfo")){
+
+    if ( data.contains("collectionInfo") ) {
         CollectionInfo info = CollectionInfo();
         data.at("collectionInfo").get_to(info);
         nullInfo = info;
@@ -48,8 +49,8 @@ std::pair<std::vector<Person>, std::optional<CollectionInfo>> CollectionSerializ
     }
 
     std::vector<Person> persons = std::vector<Person>();
-    if (data.contains("collection")){
-        for (json j : data.at("collection")){
+    if ( data.contains("collection") ) {
+        for ( json j : data.at("collection") ) {
             Person p = j;
             persons.push_back(p);
         }
@@ -57,5 +58,3 @@ std::pair<std::vector<Person>, std::optional<CollectionInfo>> CollectionSerializ
 
     return std::pair<std::vector<Person>, std::optional<CollectionInfo>>(persons, nullInfo);
 }
-
-

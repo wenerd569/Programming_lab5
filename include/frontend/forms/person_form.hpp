@@ -4,9 +4,9 @@
 #include "frontend/forms/form.hpp"
 #include <memory>
 
-class PersonForm : public Form<PersonPrecursor>{
-    public:
+class PersonForm : public Form<PersonPrecursor> {
+public:
     PersonForm(std::shared_ptr<IOInterface> ioInterface);
-    
-    PersonPrecursor build() override;
+
+    PersonPrecursor build () override;
 };

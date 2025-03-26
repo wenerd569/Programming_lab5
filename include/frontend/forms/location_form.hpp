@@ -4,10 +4,9 @@
 #include "frontend/forms/form.hpp"
 #include <memory>
 
-
-class LocationForm : public Form<Location>{
-    public:
+class LocationForm : public Form<Location> {
+public:
     LocationForm(std::shared_ptr<IOInterface> ioInterface);
 
-    Location build() override;
+    Location build () override;
 };
