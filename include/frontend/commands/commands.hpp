@@ -1,0 +1,18 @@
+#pragma once
+
+#include "frontend/commands/add_command.hpp"
+#include "frontend/commands/add_if_max_command.hpp"
+#include "frontend/commands/add_if_min_command.hpp"
+#include "frontend/commands/clear_command.hpp"
+#include "frontend/commands/execute_script_command.hpp"
+#include "frontend/commands/exit_command.hpp"
+#include "frontend/commands/filter_less_than_height_command.hpp"
+#include "frontend/commands/group_counting_by_name_command.hpp"
+#include "frontend/commands/help_command.hpp"
+#include "frontend/commands/info_command.hpp"
+#include "frontend/commands/inseart_command.hpp"
+#include "frontend/commands/print_field_ascengroup_counting_by_nameding_nationality_command.hpp"
+#include "frontend/commands/remove_command.hpp"
+#include "frontend/commands/save_command.hpp"
+#include "frontend/commands/show_command.hpp"
+#include "frontend/commands/update_command.hpp"
