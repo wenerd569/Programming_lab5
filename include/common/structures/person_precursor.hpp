@@ -7,6 +7,10 @@
 #include <optional>
 #include <string>
 
+/**
+ * @brief Данные от Person которые нужно получать на клиенте
+ *
+ */
 struct PersonPrecursor {
     std::string name;                  //
     Coordinate coordinate;             //

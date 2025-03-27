@@ -10,6 +10,10 @@
 
 class CommandManager;
 
+/**
+ * @brief Базовый класс команды
+ *
+ */
 class Command {
 protected:
     std::shared_ptr<IOInterface> io;
@@ -21,23 +25,79 @@ public:
             std::shared_ptr<CommandManager> comandManager,
             std::shared_ptr<CollectionManager> collectionManager);
 
+    /**
+     * @brief Основной метод который должен быть переопределён в каждой команде
+     * В каждой команде обязательно вызывается проверка аргументов
+     * В каждой команде взамодействующей с backend printStatus или printPersonVector
+     *
+     * @param args список аргументов в строковом представлении
+     */
     virtual void execute (std::vector<std::string> &args) = 0;
+    /**
+     * @brief Получить строку с описанием команды
+     *
+     * @return std::string
+     */
     virtual std::string getDescription () = 0;
     virtual ~Command() = default;
 
 protected:
+    /**
+     * @brief Проверить на наличие в args ровно одного аргумента заданного числового типа
+     *
+     * @tparam N
+     * @param args
+     * @param res
+     * @return true - если аргумент 1 и число заданного типа
+     */
     template<NumericType N>
     bool getOneNumArg (std::vector<std::string> &args, N &res);
-
+    /**
+     * @brief Проверить на наличие в args ровно одного аргумента строкового типа
+     *
+     * @tparam N
+     * @param args
+     * @param res
+     * @return true - если аргумент 1 и строка
+     */
     bool getOneStringArg (std::vector<std::string> &args, std::string &res);
+    /**
+     * @brief Проверить на отсутствие аргуметов
+     *
+     * @tparam N
+     * @param args
+     * @param res
+     * @return true - если аргументов нет
+     */
     bool getZeroArg (std::vector<std::string> &args);
 
+    /**
+     * @brief Вывести код результата обращения к серверу
+     *
+     * @tparam T
+     * @param response
+     */
     template<typename T>
     void printStatus (Response<T> response);
-
+    /**
+     * @brief Вывести вектор персон, а в случае ошибки вызвать printStatus
+     *
+     * @param response
+     */
     void printPersonVector (Response<std::vector<Person>> response);
-
+    /**
+     * @brief Преобразовать Person в вид подходящий для вывода на консоль
+     *
+     * @param person
+     * @return std::string
+     */
     std::string toString (Person person);
+    /**
+     * @brief Преобразовать CollectionInfo в вид подходящий для вывода на консоль
+     *
+     * @param person
+     * @return std::string
+     */
     std::string toString (CollectionInfo info);
 };
 
@@ -68,13 +128,13 @@ void Command::printStatus(Response<T> responce)
     case Response<T>::OK:
         io->write("Выполнено!\n");
         break;
-    case Response<T>::ERROR_ELEMENT_NOT_FOUND:
+    case Response<T>::ELEMENT_NOT_FOUND:
         io->writeError("Возникла ошибка: элемент не существует\n");
         break;
     case Response<T>::CANT_SAVE_DATA:
         io->writeError("Возникла ошибка: данные не сохранены\n");
         break;
-    case Response<T>::INDEX_OUT_OF_RANGE_EXEPTION:
+    case Response<T>::INDEX_OUT_OF_RANGE:
         io->writeError("Индекс вышел за границы коллекции\n");
         break;
     case Response<T>::NULL_RESULT:

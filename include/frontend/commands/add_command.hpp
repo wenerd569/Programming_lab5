@@ -2,6 +2,10 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief add {element} : добавить новый элемент в коллекцию
+ *
+ */
 class AddCommand : public Command {
 public:
     AddCommand(std::shared_ptr<IOInterface> ioInterface,

@@ -3,6 +3,10 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief clear : очистить коллекцию
+ *
+ */
 class ClearCommand : public Command {
 public:
     ClearCommand(std::shared_ptr<IOInterface> ioInterface,

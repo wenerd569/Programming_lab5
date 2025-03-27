@@ -2,6 +2,10 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief help : вывести справку по доступным командам
+ *
+ */
 class HelpCommand : public Command {
 public:
     HelpCommand(std::shared_ptr<IOInterface> ioInterface,

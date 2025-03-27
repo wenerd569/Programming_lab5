@@ -3,6 +3,11 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief add_if_min {element} : добавить новый элемент в коллекцию, если его значение меньше, чем у
+ * наименьшего элемента этой коллекции
+ *
+ */
 class AddIfMinCommand : public Command {
 public:
     AddIfMinCommand(std::shared_ptr<IOInterface> ioInterface,

@@ -1,5 +1,9 @@
 #include <chrono>
 
+/**
+ * @brief Класс выдающий даьты создания элеметам колекции
+ * и хранящий дату создания колекции
+ */
 class DateManager {
     std::chrono::year_month_day ititialDay;
 

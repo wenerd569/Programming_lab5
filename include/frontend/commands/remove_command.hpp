@@ -3,7 +3,10 @@
 #include <string>
 #include <vector>
 
-
+/**
+ * @brief remove_by_id id : удалить элемент из коллекции по его id
+ *
+ */
 class RemoveCommand : public Command {
 public:
     RemoveCommand(std::shared_ptr<IOInterface> ioInterface,

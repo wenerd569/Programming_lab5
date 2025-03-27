@@ -11,36 +11,148 @@
 #include "common/structures/collection_info.hpp"
 #include "common/structures/person.hpp"
 
+/**
+ * @brief Управляет коллекцией Person
+ * Реализет все стандартные сценарии взаимодействия с колекцией
+ * @note Этот класс сейчас напрямую используется в Command, позднее он будет подключен к API,
+ * которое будет получать Response, сереализовываь его и отправлять на клиент
+ */
 class CollectionManager {
+    // Колекция
     std::vector<Person> persons;
+    // Класс управляющий выдачей Id элементам колекции
     IdManager idManager;
+    // Класс управляющий выдачей даты создания элементам колекции
     DateManager dateManager;
+    // Класс управляющий сериализацией элементов колекции
     CollectionSerializer collectionSerializer;
 
+    // Название типа элементов Колекции (нужен для создания CollectionInfo)
     std::string type;
 
 public:
+    /**
+     * @brief Construct a new Collection Manager object
+     * Сам подгружает значения из файла колекции
+     * @param collectionSerializer
+     * @warning Если файл колекции не скществует сделает exit(1)
+     * Если существует, но содержит неправильные данные колекция создастся заново
+     */
     CollectionManager(CollectionSerializer collectionSerializer);
 
+    /**
+     * @brief Сохраняет колекцию в файл
+     *
+     * @return колекция сохранена -> Responce<void>::OK
+     * не сохранена -> Responce Responce<void>::CANT_SAVE_DATA
+     */
     Response<void> save ();
-
+    /**
+     * @brief Получить информацию о колекции
+     *
+     * @return Response<CollectionInfo>::OK
+     */
     Response<CollectionInfo> getInfo ();
 
+    /**
+     * @brief Добавить элемент в колекцию
+     *
+     * @param prePerson (Преобразуется в Person)
+     * @return Response<void>::OK
+     */
     Response<void> add (PersonPrecursor &prePerson);
+    /**
+     * @brief Удалить элемент колекции по его id
+     *
+     * @param id
+     * @return елемент найден и удалён -> Response<void>::OK
+     * нет элемента с заданным id -> Response<void>::ELEMENT_NOT_FOUND
+     */
     Response<void> remove (long id);
+    /**
+     * @brief Обновить значения элемента с заданным id
+     *
+     * @param id
+     * @param prePerson (Преобразуется в Person)
+     * @return елемент найден и обновлён ->Response<void>::OK
+     * нет элемента с заданным id -> Response<void>::ELEMENT_NOT_FOUND
+     */
     Response<void> update (long id, PersonPrecursor &prePerson);
+    /**
+     * @brief Очистить колекцию
+     *
+     * @return Response<void>::OK
+     */
     Response<void> clear ();
+    /**
+     * @brief Вставить элемент по индексу
+     *
+     * @param index
+     * @param prePerson (Преобразуется в Person)
+     * @return index не выходит за границы колекции -> Response<void>::OK
+     * выходит -> Response<void>::INDEX_OUT_OF_RANGE
+     */
     Response<void> inseartAt (size_t index, PersonPrecursor &prePerson);
+    /**
+     * @brief Добавить элемент если его высота макимальна
+     *
+     * @param prePerson (Преобразуется в Person)
+     * @return успешно добавлен -> Response<void>::OK
+     * не добавлен -> Response<void>::FAIL
+     */
     Response<void> addIfMax (PersonPrecursor &prePerson);
+    /**
+     * @brief Добавить элемент если его высота минимальна
+     *
+     * @param prePerson (Преобразуется в Person)
+     * @return успешно добавлен -> Response<void>::OK
+     * не добавлен -> Response<void>::FAIL
+     */
     Response<void> addIfMin (PersonPrecursor &prePerson);
 
+    /**
+     * @brief Проверить элемент с конкретным id на существование
+     *
+     * @param id
+     * @return элемент есть -> Response<void>::OK
+     * элемента нет -> Response<void>::ELEMENT_NOT_FOUND
+     */
     Response<void> checkElement (long id);
-
+    /**
+     * @brief Получить всю колекцию
+     *
+     * @return результат не пуст -> Response<std::vector<Person>>::OK
+     * результат пуст -> Response<std::vector<Person>>::NULL_RESULT
+     */
     Response<std::vector<Person>> getAllElement ();
+    /**
+     * @brief Получить все элементы с высотой меньше заданной
+     *
+     * @param height
+     * @return результат не пуст -> Response<std::vector<Person>>::OK
+     * результат пуст -> Response<std::vector<Person>>::NULL_RESULT
+     */
     Response<std::vector<Person>> getHeightLessElement (double height);
+    /**
+     * @brief Сгрупировть элементы по имени и вывести количество элементов с конкретным именем
+     *
+     * @return результат не пуст -> Response<std::map<std::string, int>>::OK
+     * результат пуст -> Response<std::map<std::string, int>>::NULL_RESULT
+     */
     Response<std::map<std::string, int>> groupCountingByName ();
 
 private:
+    /**
+     * @brief Расширяет PersonPrecursor до Person добавив id и creationDate
+     *
+     * @param prePerson
+     * @return Person
+     */
     Person createPerson (PersonPrecursor &prePerson);
+    /**
+     * @brief Берёт из данные из this, DateManager и IdManager
+     * и компаниет их в CollectionInfo
+     * @return CollectionInfo
+     */
     CollectionInfo configureInfo ();
 };

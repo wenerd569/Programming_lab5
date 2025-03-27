@@ -1,4 +1,7 @@
-
+/**
+ * @brief Класс выдающий уникальные id элементам колекции
+ *
+ */
 class IdManager {
     long lastId;
 

@@ -3,6 +3,10 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief exit : завершить программу (без сохранения в файл)
+ *
+ */
 class ExitCommand : public Command {
 public:
     ExitCommand(std::shared_ptr<IOInterface> ioInterface,

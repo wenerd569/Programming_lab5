@@ -10,7 +10,11 @@
 #include <string>
 #include <system_error>
 
-
+/**
+ * @brief Класс для конструктирования структур из консоли
+ * Шаблон проектирования builder
+ * @tparam T
+ */
 template<typename T>
 class Form {
 protected:
@@ -20,12 +24,39 @@ protected:
 public:
     Form(std::shared_ptr<IOInterface> ioInterface, const char *T_name);
 
+    /**
+     * @brief Метод который обязательно должен быть переопределён в производных классах под
+     * конструирование структур типа T
+     *
+     * @return T
+     */
     virtual T build () = 0;
     virtual ~Form();
 
+    /**
+     * @brief Запрашивет вложенную форму
+     *
+     * @tparam FT
+     * @param fieldName имя поля формы используется для вывода
+     * @param form указатель на форму
+     * @param canBeEmpty
+     * if canBeEmpty == true then перед созданием формы спрашивает нужно ли её добавить
+     * if canBeEmpty == false then пишет создайте форму
+     */
     template<typename FT>
     std::optional<FT> askFоrm (std::string fieldName, Form<FT> *form, bool canBeEmpty);
 
+    /**
+     * @brief Запрашивет строку
+     *
+     * @param fieldName имя поля формы используется для вывода
+     * @param restriction описание поля формы используется для вывода
+     * @param canBeEmpty
+     * if canBeEmpty == true then можно не добавить значение елсли нажаьб Enter
+     * if canBeEmpty == false then значение обязательно нужно добавить
+     * @param validate дополнительные ограничения на значение
+     * @return std::optional<std::string>
+     */
     std::optional<std::string> askString (
         std::string fieldName,
         std::string restriction,
@@ -34,6 +65,18 @@ public:
             return true;
         });
 
+    /**
+     * @brief Запрашивет число любого типа
+     *
+     * @tparam N
+     * @param fieldName имя поля формы используется для вывода
+     * @param restriction описание поля формы используется для вывода
+     * @param canBeEmpty
+     * if canBeEmpty == true then можно не добавить значение елсли нажаьб Enter
+     * if canBeEmpty == false then значение обязательно нужно добавить
+     * @param validate дополнительные ограничения на значение
+     * @return std::optional<N>
+     */
     template<NumericType N>
     std::optional<N> askNum (
         std::string fieldName,
@@ -42,7 +85,17 @@ public:
         std::function<bool(N)> validate = [] (N) -> bool {
             return true;
         });
-
+    /**
+     * @brief Запрашивет любой Enum
+     *
+     * @tparam E
+     * @param fieldName имя поля формы используется для вывода
+     * @param restriction описание поля формы используется для вывода
+     * @param canBeEmpty
+     * if canBeEmpty == true then можно не добавить значение елсли нажаьб Enter
+     * if canBeEmpty == false then значение обязательно нужно добавить
+     * @return std::optional<E>
+     */
     template<EnumType E>
     std::optional<E> askEnum (std::string fieldName, std::string restriction, bool canBeEmpty);
 };

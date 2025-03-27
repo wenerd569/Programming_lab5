@@ -59,7 +59,7 @@ Response<void> CollectionManager::remove(long id)
             return Response<void>::success();
         }
     }
-    return Response<void>::failure(Response<void>::ERROR_ELEMENT_NOT_FOUND);
+    return Response<void>::failure(Response<void>::ELEMENT_NOT_FOUND);
 }
 
 Response<void> CollectionManager::update(long id, PersonPrecursor &prePerson)
@@ -70,7 +70,7 @@ Response<void> CollectionManager::update(long id, PersonPrecursor &prePerson)
             return Response<void>::success();
         }
     }
-    return Response<void>::failure(Response<void>::ERROR_ELEMENT_NOT_FOUND);
+    return Response<void>::failure(Response<void>::ELEMENT_NOT_FOUND);
 }
 
 Response<void> CollectionManager::checkElement(long id)
@@ -80,7 +80,7 @@ Response<void> CollectionManager::checkElement(long id)
             return Response<void>::success();
         }
     }
-    return Response<void>::failure(Response<void>::ERROR_ELEMENT_NOT_FOUND);
+    return Response<void>::failure(Response<void>::ELEMENT_NOT_FOUND);
 }
 
 Response<void> CollectionManager::clear()
@@ -103,7 +103,7 @@ Response<void> CollectionManager::save()
 Response<void> CollectionManager::inseartAt(size_t index, PersonPrecursor &prePerson)
 {
     if ( index > persons.size() ) {
-        return Response<void>::failure(Response<void>::INDEX_OUT_OF_RANGE_EXEPTION);
+        return Response<void>::failure(Response<void>::INDEX_OUT_OF_RANGE);
     }
     persons.insert(index + persons.begin(), createPerson(prePerson));
     return Response<void>::success();

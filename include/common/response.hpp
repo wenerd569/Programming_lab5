@@ -3,15 +3,23 @@
 #include <memory>
 #include <utility>
 
+/**
+ * @brief Класс ответа от сервера
+ * Может содержать либо возвращаемые данные и код OK либо код ошибки
+ * @tparam T
+ */
 template<typename T>
 class Response {
 public:
+    /**
+     * @brief Коды ответа
+     */
     enum Code {
         OK,
         NULL_RESULT,
-        ERROR_ELEMENT_NOT_FOUND,
+        ELEMENT_NOT_FOUND,
         CANT_SAVE_DATA,
-        INDEX_OUT_OF_RANGE_EXEPTION,
+        INDEX_OUT_OF_RANGE,
         FAIL,
     };
 
@@ -20,7 +28,19 @@ private:
     std::unique_ptr<T> data;
 
 public:
+    /**
+     * @brief Фабричный метод создания ответа без ошибки
+     * Отвечат за инвариант класса
+     * @param value
+     * @return Response
+     */
     static Response success (T value);
+    /**
+     * @brief Фабричный метод создания ответа c ошибкой
+     * Отвечат за инвариант класса
+     * @param errorCode
+     * @return Response
+     */
     static Response failure (Code errorCode);
 
     Response(Response &&other) noexcept = default;
@@ -35,15 +55,20 @@ private:
     Response(std::unique_ptr<T> ptr, Code error);
 };
 
+/**
+ * @brief Класс ответа от сервера без данных
+ * Нужно реализовывать отдельно поскольку он не хранит данные
+ * @tparam
+ */
 template<>
 class Response<void> {
 public:
     enum Code {
         OK,
         NULL_RESULT,
-        ERROR_ELEMENT_NOT_FOUND,
+        ELEMENT_NOT_FOUND,
         CANT_SAVE_DATA,
-        INDEX_OUT_OF_RANGE_EXEPTION,
+        INDEX_OUT_OF_RANGE,
         FAIL,
     };
 

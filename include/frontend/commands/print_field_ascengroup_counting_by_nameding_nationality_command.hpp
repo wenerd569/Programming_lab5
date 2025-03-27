@@ -3,6 +3,10 @@
 #include <string>
 #include <vector>
 
+/**
+ * @brief print_field_ascending_nationality : вывести значения поля nationality всех элементов в
+ * порядке возрастания Пока не реализованно
+ */
 class PrintFieldAscengroupCountingByNamedingNationalityCommand : public Command {
 public:
     PrintFieldAscengroupCountingByNamedingNationalityCommand(

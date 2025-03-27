@@ -3,7 +3,10 @@
 #include <string>
 #include <vector>
 
-
+/**
+ * @brief save : сохранить коллекцию в файл
+ *
+ */
 class SaveCommand : public Command {
 public:
     SaveCommand(std::shared_ptr<IOInterface> ioInterface,
