@@ -8,8 +8,8 @@
 #include <vector>
 
 Command::Command(std::shared_ptr<IOInterface> ioInterface,
-                 std::shared_ptr<CommandManager> comandManager,
-                 std::shared_ptr<CollectionManager> collectionManager)
+                 std::shared_ptr<CommandHandler> comandManager,
+                 std::shared_ptr<CollectionService> collectionManager)
     : io { ioInterface },
       commandManager { comandManager },
       collectionManager { collectionManager } {};

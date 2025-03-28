@@ -1,7 +1,7 @@
 #pragma once
 
-#include "common/interface/reader.hpp"
-#include "common/interface/writer.hpp"
+#include "frontend/interface/reader.hpp"
+#include "frontend/interface/writer.hpp"
 
 class ConsoleReader : public IReader {
 public:

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/interface/reader.hpp"
+#include "frontend/interface/reader.hpp"
 #include <memory>
 #include <string>
 

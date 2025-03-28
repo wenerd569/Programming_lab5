@@ -1,8 +1,8 @@
 #pragma once
 
-#include "common/interface/io_interface.hpp"
-#include "common/interface/reader.hpp"
-#include "common/interface/writer.hpp"
+#include "frontend/interface/io_interface.hpp"
+#include "frontend/interface/reader.hpp"
+#include "frontend/interface/writer.hpp"
 #include <memory>
 #include <vector>
 

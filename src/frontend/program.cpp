@@ -22,11 +22,11 @@ void Program::start()
     }
 }
 
-std::shared_ptr<CommandManager>
-Program::ititialCommandManager(std::shared_ptr<CollectionManager> collectionManager,
+std::shared_ptr<CommandHandler>
+Program::ititialCommandManager(std::shared_ptr<CollectionService> collectionManager,
                                std::shared_ptr<IOInterface> io)
 {
-    std::shared_ptr<CommandManager> commandManager = std::make_shared<CommandManager>();
+    std::shared_ptr<CommandHandler> commandManager = std::make_shared<CommandManager>();
 
     commandManager->addCommand(std::make_unique<HelpCommand>(io, commandManager, collectionManager),
                                "help");
@@ -75,7 +75,7 @@ Program::ititialCommandManager(std::shared_ptr<CollectionManager> collectionMana
     return commandManager;
 }
 
-std::shared_ptr<CollectionManager> Program::initialCollectionManager(std::filesystem::path filePath)
+std::shared_ptr<CollectionService> Program::initialCollectionManager(std::filesystem::path filePath)
 {
     CollectionSerializer collectionSerializer = CollectionSerializer { filePath };
     return std::make_shared<CollectionManager>(collectionSerializer);

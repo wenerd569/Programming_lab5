@@ -13,7 +13,7 @@ https://docs.conan.io/2/installation.html
 3. Don't forget to add conan to the Path on windows!!
 4. Use command to compile Project
 ``` 
-conan install . --output-folder=build --build=missing -s build_type=Release --generator=CMakeToolchain
+conan install . --output-folder=build --build=missing -s build_type=Release
 cmake --preset conan-release
 ln -s build/build/Release/compile_commands.json .
 cmake --build --preset conan-release

@@ -1,12 +1,13 @@
 #pragma once
 
-#include "backend/colection_manager.hpp"
-#include "common/interface/io_interface.hpp"
+#include "common/interface/person_collection_service.hpp"
 #include "common/type_defs.hpp"
-#include "frontend/command_manager.hpp"
+#include "frontend/interface/command_handler.hpp"
+#include "frontend/interface/io_interface.hpp"
 #include <memory>
 #include <system_error>
 #include <vector>
+
 
 class CommandManager;
 
@@ -17,13 +18,13 @@ class CommandManager;
 class Command {
 protected:
     std::shared_ptr<IOInterface> io;
-    std::shared_ptr<CommandManager> commandManager;
-    std::shared_ptr<CollectionManager> collectionManager;
+    std::shared_ptr<CommandHandler> commandManager;
+    std::shared_ptr<CollectionService> collectionManager;
 
 public:
     Command(std::shared_ptr<IOInterface> ioInterface,
-            std::shared_ptr<CommandManager> comandManager,
-            std::shared_ptr<CollectionManager> collectionManager);
+            std::shared_ptr<CommandHandler> comandManager,
+            std::shared_ptr<CollectionService> collectionManager);
 
     /**
      * @brief Основной метод который должен быть переопределён в каждой команде

@@ -25,7 +25,7 @@
         {
             "label": "Generate CMakePresets.json",
             "type": "shell",
-            "command": "conan install . --output-folder=build --build=missing -s build_type=Debug --generator=CMakeToolchain",
+            "command": "conan install . --output-folder=build --build=missing -s build_type=Debug",
             "group": "build",
             "problemMatcher": [],
             "detail": "Runs Conan to generate CMakePresets.json for Debug mode."
@@ -33,7 +33,7 @@
         {
             "label": "AddLink (Debug)",
             "type": "shell",
-            "command": "ln -s build/build/Debug/compile_commands.json .",
+            "command": "cp build/build/Debug/compile_commands.json .",
             "group": "build",
             "dependsOn": [
                 "Generate CMakePresets.json"

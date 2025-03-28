@@ -7,9 +7,7 @@
 #include "backend/collection_serializer.hpp"
 #include "backend/date_manager.hpp"
 #include "backend/id_manager.hpp"
-#include "common/response.hpp"
-#include "common/structures/collection_info.hpp"
-#include "common/structures/person.hpp"
+#include "common/interface/person_collection_service.hpp"
 
 /**
  * @brief Управляет коллекцией Person
@@ -17,7 +15,7 @@
  * @note Этот класс сейчас напрямую используется в Command, позднее он будет подключен к API,
  * которое будет получать Response, сереализовываь его и отправлять на клиент
  */
-class CollectionManager {
+class CollectionManager : public CollectionService {
     // Колекция
     std::vector<Person> persons;
     // Класс управляющий выдачей Id элементам колекции
@@ -46,13 +44,13 @@ public:
      * @return колекция сохранена -> Responce<void>::OK
      * не сохранена -> Responce Responce<void>::CANT_SAVE_DATA
      */
-    Response<void> save ();
+    Response<void> save () override;
     /**
      * @brief Получить информацию о колекции
      *
      * @return Response<CollectionInfo>::OK
      */
-    Response<CollectionInfo> getInfo ();
+    Response<CollectionInfo> getInfo () override;
 
     /**
      * @brief Добавить элемент в колекцию
@@ -60,7 +58,7 @@ public:
      * @param prePerson (Преобразуется в Person)
      * @return Response<void>::OK
      */
-    Response<void> add (PersonPrecursor &prePerson);
+    Response<void> add (PersonPrecursor &prePerson) override;
     /**
      * @brief Удалить элемент колекции по его id
      *
@@ -68,7 +66,7 @@ public:
      * @return елемент найден и удалён -> Response<void>::OK
      * нет элемента с заданным id -> Response<void>::ELEMENT_NOT_FOUND
      */
-    Response<void> remove (long id);
+    Response<void> remove (long id) override;
     /**
      * @brief Обновить значения элемента с заданным id
      *
@@ -77,13 +75,13 @@ public:
      * @return елемент найден и обновлён ->Response<void>::OK
      * нет элемента с заданным id -> Response<void>::ELEMENT_NOT_FOUND
      */
-    Response<void> update (long id, PersonPrecursor &prePerson);
+    Response<void> update (long id, PersonPrecursor &prePerson) override;
     /**
      * @brief Очистить колекцию
      *
      * @return Response<void>::OK
      */
-    Response<void> clear ();
+    Response<void> clear () override;
     /**
      * @brief Вставить элемент по индексу
      *
@@ -92,7 +90,7 @@ public:
      * @return index не выходит за границы колекции -> Response<void>::OK
      * выходит -> Response<void>::INDEX_OUT_OF_RANGE
      */
-    Response<void> inseartAt (size_t index, PersonPrecursor &prePerson);
+    Response<void> inseartAt (size_t index, PersonPrecursor &prePerson) override;
     /**
      * @brief Добавить элемент если его высота макимальна
      *
@@ -100,7 +98,7 @@ public:
      * @return успешно добавлен -> Response<void>::OK
      * не добавлен -> Response<void>::FAIL
      */
-    Response<void> addIfMax (PersonPrecursor &prePerson);
+    Response<void> addIfMax (PersonPrecursor &prePerson) override;
     /**
      * @brief Добавить элемент если его высота минимальна
      *
@@ -108,7 +106,7 @@ public:
      * @return успешно добавлен -> Response<void>::OK
      * не добавлен -> Response<void>::FAIL
      */
-    Response<void> addIfMin (PersonPrecursor &prePerson);
+    Response<void> addIfMin (PersonPrecursor &prePerson) override;
 
     /**
      * @brief Проверить элемент с конкретным id на существование
@@ -117,14 +115,14 @@ public:
      * @return элемент есть -> Response<void>::OK
      * элемента нет -> Response<void>::ELEMENT_NOT_FOUND
      */
-    Response<void> checkElement (long id);
+    Response<void> checkElement (long id) override;
     /**
      * @brief Получить всю колекцию
      *
      * @return результат не пуст -> Response<std::vector<Person>>::OK
      * результат пуст -> Response<std::vector<Person>>::NULL_RESULT
      */
-    Response<std::vector<Person>> getAllElement ();
+    Response<std::vector<Person>> getAllElement () override;
     /**
      * @brief Получить все элементы с высотой меньше заданной
      *
@@ -132,14 +130,14 @@ public:
      * @return результат не пуст -> Response<std::vector<Person>>::OK
      * результат пуст -> Response<std::vector<Person>>::NULL_RESULT
      */
-    Response<std::vector<Person>> getHeightLessElement (double height);
+    Response<std::vector<Person>> getHeightLessElement (double height) override;
     /**
      * @brief Сгрупировть элементы по имени и вывести количество элементов с конкретным именем
      *
      * @return результат не пуст -> Response<std::map<std::string, int>>::OK
      * результат пуст -> Response<std::map<std::string, int>>::NULL_RESULT
      */
-    Response<std::map<std::string, int>> groupCountingByName ();
+    Response<std::map<std::string, int>> groupCountingByName () override;
 
 private:
     /**
