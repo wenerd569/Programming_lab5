@@ -4,7 +4,9 @@
 
 #include "frontend/command_manager.hpp"
 
-void CommandManager::execute(std::string &line)
+CommandManager::CommandManager() : commands {} {};
+
+bool CommandManager::execute(std::string &line)
 {
     char delimiter = ' ';
     std::stringstream ss { line };
@@ -18,7 +20,10 @@ void CommandManager::execute(std::string &line)
             args.push_back(item);
         }
         commands[command]->execute(args);
-    };
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void CommandManager::addCommand(std::unique_ptr<Command> command, std::string commandName)

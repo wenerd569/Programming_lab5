@@ -1,5 +1,6 @@
 
 #include "frontend/console_io.hpp"
+#include <cmath>
 #include <iostream>
 
 std::string ConsoleReader::readline()
@@ -11,7 +12,7 @@ std::string ConsoleReader::readline()
 
 bool ConsoleReader::isEndOfReader()
 {
-    return false;
+    return std::cin.eof();
 }
 
 IReader::ReaderType ConsoleReader::getType()

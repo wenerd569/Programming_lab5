@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.20)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+#set(CMAKE_EXE_LINKER_FLAGS "-static")
+#[options]
+#nlohmann_json/*:shared=False
+#magic_enum/*:shared=False
+
+
+
 project(ProgLab5)
 
 foreach(m IN ITEMS ${CMAKE_CXX_COMPILE_FEATURES})
@@ -13,11 +20,11 @@ include_directories(include)
 find_package(magic_enum REQUIRED)
 find_package(nlohmann_json REQUIRED)
 
-
+file(GLOB SOURCES2 "src/*/*/*/*.cpp")
 file(GLOB SOURCES1 "src/*/*/*.cpp")
 file(GLOB SOURCES "src/*/*.cpp")
 
-add_executable(${PROJECT_NAME} src/main.cpp; ${SOURCES}; ${SOURCES1})
+add_executable(${PROJECT_NAME} src/main.cpp; ${SOURCES}; ${SOURCES1}; ${SOURCES2})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE magic_enum::magic_enum)

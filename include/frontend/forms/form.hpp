@@ -22,7 +22,7 @@ protected:
     std::string T_name;
 
 public:
-    Form(std::shared_ptr<IOInterface> ioInterface, const char *T_name);
+    Form(std::shared_ptr<IOInterface> ioInterface, std::string T_name);
 
     /**
      * @brief Метод который обязательно должен быть переопределён в производных классах под
@@ -101,8 +101,8 @@ public:
 };
 
 template<typename T>
-Form<T>::Form(std::shared_ptr<IOInterface> ioInterface, const char *T_name)
-    : io { ioInterface }, T_name { T_name } {};
+Form<T>::Form(std::shared_ptr<IOInterface> ioInterface, std::string T_name)
+    : io { ioInterface }, T_name { std::move(T_name) } {};
 
 template<typename T>
 Form<T>::~Form() {};

@@ -139,6 +139,8 @@ public:
      */
     Response<std::map<std::string, int>> groupCountingByName () override;
 
+    Response<std::map<long, Country>> getFieldAscendingNationality () override;
+
 private:
     /**
      * @brief Расширяет PersonPrecursor до Person добавив id и creationDate

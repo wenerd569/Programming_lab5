@@ -9,28 +9,30 @@
  * @brief Класс управляющий обработкой команд
  *
  */
-class CommandManager : public CommandHandler {
+class CommandManager {
 protected:
     std::unordered_map<std::string, std::unique_ptr<Command>> commands;
 
 public:
+    CommandManager();
+
     /**
      * @brief Выполнить команду по её названию
      * @param line через пробел должна содержать команду и её описание
      */
-    void execute (std::string &line) override;
+    bool execute (std::string &line);
     /**
      * @brief Добавить команду для обработки
      * Используется при инициализации класса
      * @param coomand
      * @param commandName
      */
-    void addCommand (std::unique_ptr<Command> coomand, std::string commandName) override;
+    void addCommand (std::unique_ptr<Command> coomand, std::string commandName);
 
     /**
      * @brief Получить список всех команд
      * Используется только командой help
      * @return const std::unordered_map<std::string, std::unique_ptr<Command>>&
      */
-    const std::unordered_map<std::string, std::unique_ptr<Command>> &getCommands () override;
+    const std::unordered_map<std::string, std::unique_ptr<Command>> &getCommands ();
 };

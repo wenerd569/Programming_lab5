@@ -11,7 +11,10 @@
 
 using json = nlohmann::json;
 
-CollectionSerializer::CollectionSerializer(std::filesystem::path filePath) : filePath(filePath) { }
+CollectionSerializer::CollectionSerializer(std::filesystem::path filePath)
+    : filePath { std::move(filePath) }
+{
+}
 
 void CollectionSerializer::serialize(std::vector<Person> &persons, CollectionInfo &info)
 {
@@ -32,10 +35,7 @@ std::pair<std::vector<Person>, std::optional<CollectionInfo>> CollectionSerializ
         throw std::ios_base::failure("Не удаётся открыть файл колекции");
     }
     json data;
-    try {
-        data = json::parse(file);
-    } catch ( json::parse_error &e ) {
-    }
+    data = json::parse(file);
     file.close();
 
     std::optional<CollectionInfo> nullInfo;

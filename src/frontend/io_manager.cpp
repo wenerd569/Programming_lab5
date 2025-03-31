@@ -1,4 +1,6 @@
 #include "frontend/io_manager.hpp"
+#include "common/exeptions/program_terminate_exeption.hpp"
+#include <cstdlib>
 #include <memory>
 #include <vector>
 
@@ -17,10 +19,12 @@ std::string IOManager::readline()
     while ( readerStack.back()->isEndOfReader() ) {
         readerStack.pop_back();
         if ( res == "" ) {
+            if ( readerStack.empty() ) {
+                throw ProgramTerminateException("Принудительное завершение програмы");
+            }
             res = readerStack.back()->readline();
         }
     }
-
     return res;
 }
 

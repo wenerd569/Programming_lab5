@@ -1,13 +1,14 @@
 #pragma once
 
-#include "common/interface/person_collection_service.hpp"
+#include "common/response.hpp"
+#include "common/structures/collection_info.hpp"
+#include "common/structures/person.hpp"
 #include "common/type_defs.hpp"
-#include "frontend/interface/command_handler.hpp"
 #include "frontend/interface/io_interface.hpp"
 #include <memory>
+#include <string>
 #include <system_error>
 #include <vector>
-
 
 class CommandManager;
 
@@ -18,13 +19,10 @@ class CommandManager;
 class Command {
 protected:
     std::shared_ptr<IOInterface> io;
-    std::shared_ptr<CommandHandler> commandManager;
-    std::shared_ptr<CollectionService> collectionManager;
+    std::string description;
 
 public:
-    Command(std::shared_ptr<IOInterface> ioInterface,
-            std::shared_ptr<CommandHandler> comandManager,
-            std::shared_ptr<CollectionService> collectionManager);
+    Command(std::shared_ptr<IOInterface> ioInterface, std::string description);
 
     /**
      * @brief Основной метод который должен быть переопределён в каждой команде
@@ -39,7 +37,7 @@ public:
      *
      * @return std::string
      */
-    virtual std::string getDescription () = 0;
+    const std::string &getDescription () &;
     virtual ~Command() = default;
 
 protected:

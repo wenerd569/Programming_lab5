@@ -7,12 +7,15 @@
 #include <utility>
 #include <vector>
 
-Command::Command(std::shared_ptr<IOInterface> ioInterface,
-                 std::shared_ptr<CommandHandler> comandManager,
-                 std::shared_ptr<CollectionService> collectionManager)
-    : io { ioInterface },
-      commandManager { comandManager },
-      collectionManager { collectionManager } {};
+Command::Command(std::shared_ptr<IOInterface> ioInterface, std::string description)
+    : io { ioInterface }, description { std::move(description) }
+{
+}
+
+const std::string &Command::getDescription() &
+{
+    return description;
+}
 
 bool Command::getOneStringArg(std::vector<std::string> &args, std::string &res)
 {

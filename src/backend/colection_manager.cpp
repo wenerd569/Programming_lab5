@@ -1,30 +1,36 @@
-#include <cmath>
-#include <limits>
-
-#include "iostream"
+#include "common/exeptions/program_terminate_exeption.hpp"
+#include <algorithm>
 #include <backend/colection_manager.hpp>
+#include <cmath>
+#include <iostream>
+#include <limits>
 #include <nlohmann/json_fwd.hpp>
+#include <utility>
 #include <vector>
 
-CollectionManager::CollectionManager(CollectionSerializer collectionSerializer)
-    : collectionSerializer { collectionSerializer }
+const long getLastId (std::vector<Person> persons)
+{
+    long res = 0;
+    for ( auto p : persons ) {
+        res = std::max(res, p.id);
+    }
+    return res;
+}
+
+CollectionManager::CollectionManager(CollectionSerializer _collectionSerializer)
+    : collectionSerializer { std::move(_collectionSerializer) }
 {
     std::optional<CollectionInfo> nullInfo;
-    try {
-        auto tmp = collectionSerializer.deserialize();
-        persons = tmp.first;
-        nullInfo = tmp.second;
-    } catch ( std::ios_base::failure e ) {
-        std::cerr << e.what() << std::endl;
-        exit(1);
-    };
+    auto tmp = collectionSerializer.deserialize();
+    persons = std::move(tmp.first);
+    nullInfo = std::move(tmp.second);
 
     if ( nullInfo.has_value() ) {
         dateManager = DateManager { nullInfo->initialDate };
-        idManager = IdManager(nullInfo->lastId);
-        type = nullInfo->type;
+        idManager = IdManager(std::max(nullInfo->lastId, getLastId(persons)));
+        type = std::move(nullInfo->type);
     } else {
-        idManager = IdManager {};
+        idManager = IdManager { getLastId(persons) };
         dateManager = DateManager {};
         type = "Person";
     }
@@ -42,7 +48,7 @@ CollectionInfo CollectionManager::configureInfo()
 
 Response<CollectionInfo> CollectionManager::getInfo()
 {
-    return Response<CollectionInfo>::success(configureInfo());
+    return Response<CollectionInfo>::success(std::move(configureInfo()));
 }
 
 Response<void> CollectionManager::add(PersonPrecursor &prePerson)
@@ -56,6 +62,9 @@ Response<void> CollectionManager::remove(long id)
     for ( size_t i = 0; i < persons.size(); ++i ) {
         if ( persons[i].id == id ) {
             persons.erase(i + persons.begin());
+            if ( id == idManager.getLast() ) {
+                idManager = IdManager(getLastId(persons));
+            }
             return Response<void>::success();
         }
     }
@@ -86,6 +95,7 @@ Response<void> CollectionManager::checkElement(long id)
 Response<void> CollectionManager::clear()
 {
     persons.clear();
+    idManager = IdManager(getLastId(persons));
     return Response<void>::success();
 }
 
@@ -174,4 +184,14 @@ Response<std::map<std::string, int>> CollectionManager::groupCountingByName()
             Response<std::map<std::string, int>>::NULL_RESULT);
     }
     return Response<std::map<std::string, int>>::success(res);
+}
+
+Response<std::map<long, Country>> CollectionManager::getFieldAscendingNationality()
+{
+    std::map<long, Country> res = std::map<long, Country>();
+
+    for ( int i = 0; i < persons.size(); i++ ) {
+        res[persons[i].id] = persons[i].nationality;
+    }
+    return Response<std::map<long, Country>>::success(res);
 }

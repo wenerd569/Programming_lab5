@@ -1,6 +1,8 @@
 
+#include "common/exeptions/program_terminate_exeption.hpp"
 #include "frontend/program.hpp"
 #include <iostream>
+#include <ostream>
 
 int main (int argc, char *argv[])
 {
@@ -13,5 +15,11 @@ int main (int argc, char *argv[])
     std::string fileName = argv[1];
     std::filesystem::path filePath = std::filesystem::path { fileName };
     Program program = Program(filePath);
-    program.start();
+    try {
+        program.start();
+    } catch ( ProgramTerminateException e ) {
+        std::cout << e.what() << std::endl;
+    } catch ( std::ios::failure e ) {
+        std::cout << e.what() << std::endl;
+    }
 }

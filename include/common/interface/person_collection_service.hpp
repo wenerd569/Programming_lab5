@@ -3,15 +3,8 @@
 #include "common/response.hpp"
 #include "common/structures/collection_info.hpp"
 #include "common/structures/person.hpp"
-
 #include <map>
 
-/**
- * @brief Интерфейс для сервиса управления коллекцией
- * Реализет все стандартные сценарии взаимодействия с колекцией
- * @note Этот класс сейчас напрямую используется в Command, позднее он будет подключен к API,
- * которое будет получать Response, сереализовываь его и отправлять на клиент
- */
 class CollectionService {
 public:
     virtual Response<void> save () = 0;
@@ -27,6 +20,7 @@ public:
     virtual Response<std::vector<Person>> getAllElement () = 0;
     virtual Response<std::vector<Person>> getHeightLessElement (double height) = 0;
     virtual Response<std::map<std::string, int>> groupCountingByName () = 0;
+    virtual Response<std::map<long, Country>> getFieldAscendingNationality () = 0;
 
     virtual ~CollectionService() = default;
 };

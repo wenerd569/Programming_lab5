@@ -1,5 +1,4 @@
 
-#include "backend/colection_manager.hpp"
 #include "common/interface/person_collection_service.hpp"
 #include "frontend/command_manager.hpp"
 #include <cmath>
@@ -13,7 +12,7 @@
  * @brief Класс программы
  */
 class Program {
-    std::shared_ptr<CommandHandler> commandManager;
+    std::shared_ptr<CommandManager> commandManager;
     std::shared_ptr<CollectionService> collectionManager;
     std::shared_ptr<IOInterface> io;
 
@@ -25,7 +24,7 @@ class Program {
      * @param io
      * @return std::shared_ptr<CommandManager>
      */
-    virtual std::shared_ptr<CommandHandler>
+    virtual std::unique_ptr<CommandManager>
     ititialCommandManager (std::shared_ptr<CollectionService> collectionManager,
                            std::shared_ptr<IOInterface> io);
     /**
