@@ -9,11 +9,8 @@
  * @brief clear : очистить коллекцию
  *
  */
-class ClearCommand : public Command {
+class ClearCommand {
 public:
-    std::shared_ptr<CollectionService> collectionService;
-
-    ClearCommand(std::shared_ptr<IOInterface> ioInterface,
-                 std::shared_ptr<CollectionService> collectionService);
-    void execute (std::vector<std::string> &args) override;
+    static Command make (std::shared_ptr<IOManager> ioInterface,
+                         std::shared_ptr<CollectionService> collectionService);
 };

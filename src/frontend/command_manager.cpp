@@ -19,19 +19,19 @@ bool CommandManager::execute(std::string &line)
         while ( std::getline(ss, item, delimiter) ) {
             args.push_back(item);
         }
-        commands[command]->execute(args);
+        commands[command].execute(args);
         return true;
     } else {
         return false;
     }
 }
 
-void CommandManager::addCommand(std::unique_ptr<Command> command, std::string commandName)
+void CommandManager::addCommand(Command command, std::string commandName)
 {
-    commands[commandName] = std::move(command);
+    commands.insert({ std::move(commandName), std::move(command) });
 }
 
-const std::unordered_map<std::string, std::unique_ptr<Command>> &CommandManager::getCommands()
+const std::unordered_map<std::string, Command> &CommandManager::getCommands()
 {
     return commands;
 }

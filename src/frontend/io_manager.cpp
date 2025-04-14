@@ -1,28 +1,36 @@
 #include "frontend/io_manager.hpp"
-#include "common/exeptions/program_terminate_exeption.hpp"
-#include <cstdlib>
-#include <memory>
-#include <vector>
+#include <ios>
 
-IOManager::IOManager(std::unique_ptr<IReader> reader, std::unique_ptr<IWriter> writer)
-    : readerStack {}, writer { std::move(writer) }
+IOManager::IOManager(Reader reader, Writer writer) : readerStack {}, writer { std::move(writer) }
 {
     readerStack.push_back(std::move(reader));
 }
 
-IOManager::~IOManager() {};
+IOManager::~IOManager() = default;
+
+void IOManager::openNewReader(Reader reader)
+{
+    for ( int i = 0; i <= readerStack.size(); i++ ) {
+        if ( readerStack[i] == reader ) {
+            throw std::ios_base::failure {
+                "Возникла ошибка: попытка рекурсивного открытия скрипта"
+            };
+        }
+    }
+    readerStack.push_back(std::move(reader));
+}
 
 std::string IOManager::readline()
 {
     std::string res;
-    res = readerStack.back()->readline();
-    while ( readerStack.back()->isEndOfReader() ) {
+    res = readerStack.back().readline();
+    while ( readerStack.back().isEndOfReader() ) {
         readerStack.pop_back();
         if ( res == "" ) {
             if ( readerStack.empty() ) {
                 throw ProgramTerminateException("Принудительное завершение програмы");
             }
-            res = readerStack.back()->readline();
+            res = readerStack.back().readline();
         }
     }
     return res;
@@ -30,18 +38,13 @@ std::string IOManager::readline()
 
 void IOManager::write(const std::string &text)
 {
-    if ( readerStack.back()->getType() == IReader::File ) {
+    if ( readerStack.back().type != Reader::Console ) {
         return;
     }
-    return writer->write(text);
+    writer.write(text);
 }
 
 void IOManager::writeError(const std::string &text)
 {
-    return writer->write(text);
-}
-
-void IOManager::openNewReader(std::unique_ptr<IReader> reader)
-{
-    readerStack.push_back(std::move(reader));
+    writer.write(text);
 }

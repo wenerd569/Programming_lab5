@@ -5,7 +5,7 @@
 
 class CoorditateForm : public Form<Coordinate> {
 public:
-    CoorditateForm(std::shared_ptr<IOInterface> ioInterface);
+    CoorditateForm(std::shared_ptr<IOManager> ioInterface);
 
     Coordinate build () override;
 };

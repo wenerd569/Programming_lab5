@@ -1,6 +1,6 @@
+#pragma once
 
 #include "string"
-#include <exception>
 #include <stdexcept>
 
 class ProgramTerminateException : public std::logic_error {

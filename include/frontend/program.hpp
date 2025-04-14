@@ -14,7 +14,7 @@
 class Program {
     std::shared_ptr<CommandManager> commandManager;
     std::shared_ptr<CollectionService> collectionManager;
-    std::shared_ptr<IOInterface> io;
+    std::shared_ptr<IOManager> io;
 
     /**
      * @brief Инициализирует менеджер команд
@@ -26,7 +26,7 @@ class Program {
      */
     virtual std::unique_ptr<CommandManager>
     ititialCommandManager (std::shared_ptr<CollectionService> collectionManager,
-                           std::shared_ptr<IOInterface> io);
+                           std::shared_ptr<IOManager> io);
     /**
      * @brief Инициализирует CollectionManager
      *
@@ -40,7 +40,7 @@ class Program {
      *
      * @return std::shared_ptr<IOInterface>
      */
-    virtual std::shared_ptr<IOInterface> initialIO ();
+    virtual std::shared_ptr<IOManager> initialIO ();
 
 public:
     /**

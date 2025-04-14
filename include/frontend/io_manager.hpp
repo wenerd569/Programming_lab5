@@ -1,22 +1,21 @@
 #pragma once
 
-#include "frontend/interface/io_interface.hpp"
-#include "frontend/interface/reader.hpp"
-#include "frontend/interface/writer.hpp"
-#include <memory>
+#include "common/exeptions/program_terminate_exeption.hpp"
+#include "frontend/reader.hpp"
+#include "frontend/writer.hpp"
 #include <vector>
 
-class IOManager : public IOInterface {
+class IOManager {
 protected:
-    std::vector<std::unique_ptr<IReader>> readerStack;
-    std::unique_ptr<IWriter> writer;
+    std::vector<Reader> readerStack;
+    Writer writer;
 
 public:
-    IOManager(std::unique_ptr<IReader> reader, std::unique_ptr<IWriter> writer);
-    ~IOManager();
+    IOManager(Reader reader, Writer writer);
 
-    void openNewReader (std::unique_ptr<IReader> reader) override;
-    std::string readline () override;
-    void write (const std::string &text) override;
-    void writeError (const std::string &text) override;
+    ~IOManager();
+    void openNewReader (Reader reader);
+    std::string readline ();
+    void write (const std::string &text);
+    void writeError (const std::string &text);
 };

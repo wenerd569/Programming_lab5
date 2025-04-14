@@ -176,8 +176,9 @@ Response<std::map<std::string, int>> CollectionManager::groupCountingByName()
     for ( size_t i = 0; i < persons.size(); ++i ) {
         if ( res.contains(persons[i].name) ) {
             res[persons[i].name] += 1;
+        } else {
+            res[persons[i].name] = 1;
         }
-        persons[i].name = 1;
     }
     if ( res.empty() ) {
         return Response<std::map<std::string, int>>::failure(

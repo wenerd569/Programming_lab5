@@ -3,27 +3,25 @@
 #include <magic_enum/magic_enum.hpp>
 #include <string>
 
-PrintFieldAscengroupCountingByNamedingNationalityCommand::
-    PrintFieldAscengroupCountingByNamedingNationalityCommand(
-        std::shared_ptr<IOInterface> ioInterface,
-        std::shared_ptr<CollectionService> collectionService)
-    : Command(ioInterface,
-              " : вывести значения поля nationality всех элементов в порядке возрастания"),
-      collectionService { collectionService } {};
-
-void PrintFieldAscengroupCountingByNamedingNationalityCommand::execute(
-    std::vector<std::string> &args)
+Command PrintFieldAscengroupCountingByNamedingNationalityCommand::make(
+    std::shared_ptr<IOManager> io, std::shared_ptr<CollectionService> collectionService)
 {
-    if ( ! getZeroArg(args) ) {
-        return;
-    }
-    auto rsp = collectionService->getFieldAscendingNationality();
-    if ( rsp.getStatusCode() == Response<std::map<long, Country>>::OK ) {
-        for ( std::pair<long, Country> line : rsp.getData() ) {
-            std::string countryName = (std::string)magic_enum::enum_name(line.second);
-            io->write(std::to_string(line.first) + " : " + countryName + "\n");
+    return Command {
+        " : вывести значения поля nationality всех элементов в порядке возрастания",
+        [=] (std::vector<std::string> &args) {
+            if ( ! Command::getZeroArg(*io, args) ) {
+                return;
+            }
+            auto rsp = collectionService->getFieldAscendingNationality();
+            if ( rsp.getStatusCode() == Response<std::map<long, Country>>::OK ) {
+                for ( std::pair<long, Country> line : rsp.getData() ) {
+                    std::string countryName = (std::string)magic_enum::enum_name(line.second);
+                    io->write(std::to_string(line.first) + " : " + countryName + "\n");
+                }
+            } else {
+                Command::printStatus(*io, std::move(rsp));
+            }
         }
-    } else {
-        printStatus(std::move(rsp));
-    }
+
+    };
 }

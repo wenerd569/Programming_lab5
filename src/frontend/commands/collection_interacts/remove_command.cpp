@@ -1,16 +1,17 @@
 
 #include "frontend/commands/collection_interacts/remove_command.hpp"
 
-RemoveCommand::RemoveCommand(std::shared_ptr<IOInterface> ioInterface,
-                             std::shared_ptr<CollectionService> collectionService)
-    : Command(ioInterface, " id : удалить элемент из коллекции по его id"),
-      collectionService { collectionService } {};
-
-void RemoveCommand::execute(std::vector<std::string> &args)
+Command RemoveCommand::make(std::shared_ptr<IOManager> io,
+                            std::shared_ptr<CollectionService> collectionService)
 {
-    long id;
-    if ( ! getOneNumArg<long>(args, id) ) {
-        return;
-    }
-    printStatus(collectionService->remove(id));
+    return Command { " id : удалить элемент из коллекции по его id",
+                     [=] (std::vector<std::string> &args) {
+                         long id;
+                         if ( ! Command::getOneNumArg<long>(*io, args, id) ) {
+                             return;
+                         }
+                         Command::printStatus(*io, collectionService->remove(id));
+                     }
+
+    };
 }

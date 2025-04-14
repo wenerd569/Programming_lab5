@@ -6,7 +6,7 @@
 
 class LocationForm : public Form<Location> {
 public:
-    LocationForm(std::shared_ptr<IOInterface> ioInterface);
+    LocationForm(std::shared_ptr<IOManager> ioInterface);
 
     Location build () override;
 };

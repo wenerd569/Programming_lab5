@@ -8,12 +8,8 @@
  * @brief print_field_ascending_nationality : вывести значения поля nationality всех элементов в
  * порядке возрастания Пока не реализованно
  */
-class PrintFieldAscengroupCountingByNamedingNationalityCommand : public Command {
+class PrintFieldAscengroupCountingByNamedingNationalityCommand {
 public:
-    std::shared_ptr<CollectionService> collectionService;
-
-    PrintFieldAscengroupCountingByNamedingNationalityCommand(
-        std::shared_ptr<IOInterface> ioInterface,
-        std::shared_ptr<CollectionService> collectionService);
-    void execute (std::vector<std::string> &args) override;
+    static Command make (std::shared_ptr<IOManager> ioInterface,
+                         std::shared_ptr<CollectionService> collectionService);
 };

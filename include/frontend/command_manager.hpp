@@ -11,7 +11,7 @@
  */
 class CommandManager {
 protected:
-    std::unordered_map<std::string, std::unique_ptr<Command>> commands;
+    std::unordered_map<std::string, Command> commands;
 
 public:
     CommandManager();
@@ -27,12 +27,12 @@ public:
      * @param coomand
      * @param commandName
      */
-    void addCommand (std::unique_ptr<Command> coomand, std::string commandName);
+    void addCommand (Command coomand, std::string commandName);
 
     /**
      * @brief Получить список всех команд
      * Используется только командой help
      * @return const std::unordered_map<std::string, std::unique_ptr<Command>>&
      */
-    const std::unordered_map<std::string, std::unique_ptr<Command>> &getCommands ();
+    const std::unordered_map<std::string, Command> &getCommands ();
 };

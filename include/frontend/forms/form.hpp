@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common/type_defs.hpp"
-#include "frontend/interface/io_interface.hpp"
+#include "frontend/io_manager.hpp"
 #include "magic_enum/magic_enum.hpp"
 #include <charconv>
 #include <functional>
@@ -18,11 +18,11 @@
 template<typename T>
 class Form {
 protected:
-    std::shared_ptr<IOInterface> io;
+    std::shared_ptr<IOManager> io;
     std::string T_name;
 
 public:
-    Form(std::shared_ptr<IOInterface> ioInterface, std::string T_name);
+    Form(std::shared_ptr<IOManager> ioInterface, std::string T_name);
 
     /**
      * @brief Метод который обязательно должен быть переопределён в производных классах под
@@ -101,7 +101,7 @@ public:
 };
 
 template<typename T>
-Form<T>::Form(std::shared_ptr<IOInterface> ioInterface, std::string T_name)
+Form<T>::Form(std::shared_ptr<IOManager> ioInterface, std::string T_name)
     : io { ioInterface }, T_name { std::move(T_name) } {};
 
 template<typename T>

@@ -6,7 +6,7 @@
 
 class PersonForm : public Form<PersonPrecursor> {
 public:
-    PersonForm(std::shared_ptr<IOInterface> ioInterface);
+    PersonForm(std::shared_ptr<IOManager> ioInterface);
 
     PersonPrecursor build () override;
 };

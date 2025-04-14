@@ -8,8 +8,7 @@
  * содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.
  *
  */
-class ExecuteScriptCommand : public Command {
+class ExecuteScriptCommand {
 public:
-    ExecuteScriptCommand(std::shared_ptr<IOInterface> ioInterface);
-    void execute (std::vector<std::string> &args) override;
+    static Command make (std::shared_ptr<IOManager> ioInterface);
 };

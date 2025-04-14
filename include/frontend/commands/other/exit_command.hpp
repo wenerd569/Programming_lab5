@@ -9,6 +9,5 @@
  */
 class ExitCommand : public Command {
 public:
-    ExitCommand(std::shared_ptr<IOInterface> ioInterface);
-    void execute (std::vector<std::string> &args) override;
+    static Command make (std::shared_ptr<IOManager> ioInterface);
 };

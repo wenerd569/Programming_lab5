@@ -1,14 +1,13 @@
 
 #include "frontend/commands/collection_interacts/clear_command.hpp"
 
-ClearCommand::ClearCommand(std::shared_ptr<IOInterface> ioInterface,
+Command ClearCommand::make(std::shared_ptr<IOManager> io,
                            std::shared_ptr<CollectionService> collectionService)
-    : Command(ioInterface, " : очистить коллекцию"), collectionService { collectionService } {};
-
-void ClearCommand::execute(std::vector<std::string> &args)
 {
-    if ( ! getZeroArg(args) ) {
-        return;
-    }
-    printStatus(collectionService->clear());
+    return Command { " : очистить коллекцию", [=] (std::vector<std::string> &args) {
+                        if ( ! Command::getZeroArg(*io, args) ) {
+                            return;
+                        }
+                        Command::printStatus(*io, collectionService->clear());
+                    } };
 }

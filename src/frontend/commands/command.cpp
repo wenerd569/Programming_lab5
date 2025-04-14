@@ -7,44 +7,34 @@
 #include <utility>
 #include <vector>
 
-Command::Command(std::shared_ptr<IOInterface> ioInterface, std::string description)
-    : io { ioInterface }, description { std::move(description) }
-{
-}
-
-const std::string &Command::getDescription() &
-{
-    return description;
-}
-
-bool Command::getOneStringArg(std::vector<std::string> &args, std::string &res)
+bool Command::getOneStringArg(IOManager &io, std::vector<std::string> &args, std::string &res)
 {
     if ( args.size() != 1 ) {
-        io->writeError("Данная функция принимает один строковый аргумент");
+        io.writeError("Данная функция принимает один строковый аргумент");
         return false;
     }
     res = args[0];
     return true;
 }
 
-bool Command::getZeroArg(std::vector<std::string> &args)
+bool Command::getZeroArg(IOManager &io, std::vector<std::string> &args)
 {
     if ( args.size() != 0 ) {
-        io->writeError("Данная функция не принимает аргументов");
+        io.writeError("Данная функция не принимает аргументов");
         return false;
     }
     return true;
 }
 
-void Command::printPersonVector(Response<std::vector<Person>> response)
+void Command::printPersonVector(IOManager &io, Response<std::vector<Person>> response)
 {
     if ( response.getStatusCode() == Response<std::vector<Person>>::OK ) {
-        io->write("Список персон:\n");
+        io.write("Список персон:\n");
         for ( Person person : response.getData() ) {
-            io->write(toString(person) + '\n');
+            io.write(toString(person) + '\n');
         }
     } else {
-        printStatus(std::move(response));
+        printStatus(io, std::move(response));
     }
 }
 

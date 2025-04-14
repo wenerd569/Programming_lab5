@@ -3,7 +3,6 @@
 
 #include "backend/colection_manager.hpp"
 #include "frontend/commands/commands.hpp"
-#include "frontend/console_io.hpp"
 #include "frontend/io_manager.hpp"
 #include <memory>
 #include <string>
@@ -28,36 +27,36 @@ void Program::start()
 
 std::unique_ptr<CommandManager>
 Program::ititialCommandManager(std::shared_ptr<CollectionService> collectionManager,
-                               std::shared_ptr<IOInterface> io)
+                               std::shared_ptr<IOManager> io)
 {
     std::unique_ptr<CommandManager> commandManager = std::make_unique<CommandManager>();
 
-    commandManager->addCommand(std::make_unique<HelpCommand>(io, commandManager->getCommands()),
+    commandManager->addCommand(std::move(HelpCommand::make(io, commandManager->getCommands())),
                                "help");
-    commandManager->addCommand(std::make_unique<ExecuteScriptCommand>(io), "execute_script");
-    commandManager->addCommand(std::make_unique<ExitCommand>(io), "exit");
+    commandManager->addCommand(std::move(ExecuteScriptCommand::make(io)), "execute_script");
+    commandManager->addCommand(std::move(ExitCommand::make(io)), "exit");
 
-    commandManager->addCommand(std::make_unique<InfoCommand>(io, collectionManager), "info");
-    commandManager->addCommand(std::make_unique<ShowCommand>(io, collectionManager), "show");
-    commandManager->addCommand(std::make_unique<AddCommand>(io, collectionManager), "add");
-    commandManager->addCommand(std::make_unique<UpdateCommand>(io, collectionManager), "update");
-    commandManager->addCommand(std::make_unique<RemoveCommand>(io, collectionManager),
+    commandManager->addCommand(std::move(InfoCommand::make(io, collectionManager)), "info");
+    commandManager->addCommand(std::move(ShowCommand::make(io, collectionManager)), "show");
+    commandManager->addCommand(std::move(AddCommand::make(io, collectionManager)), "add");
+    commandManager->addCommand(std::move(UpdateCommand::make(io, collectionManager)), "update");
+    commandManager->addCommand(std::move(RemoveCommand::make(io, collectionManager)),
                                "remove_by_id");
-    commandManager->addCommand(std::make_unique<ClearCommand>(io, collectionManager), "clear");
-    commandManager->addCommand(std::make_unique<SaveCommand>(io, collectionManager), "save");
-    commandManager->addCommand(std::make_unique<InseartCommand>(io, collectionManager),
+    commandManager->addCommand(std::move(ClearCommand::make(io, collectionManager)), "clear");
+    commandManager->addCommand(std::move(SaveCommand::make(io, collectionManager)), "save");
+    commandManager->addCommand(std::move(InseartCommand::make(io, collectionManager)),
                                "inseart_at");
-    commandManager->addCommand(std::make_unique<AddIfMaxCommand>(io, collectionManager),
+    commandManager->addCommand(std::move(AddIfMaxCommand::make(io, collectionManager)),
                                "add_if_max");
-    commandManager->addCommand(std::make_unique<AddIfMinCommand>(io, collectionManager),
+    commandManager->addCommand(std::move(AddIfMinCommand::make(io, collectionManager)),
                                "add_if_min");
-    commandManager->addCommand(std::make_unique<GroupCountingByNameCommand>(io, collectionManager),
+    commandManager->addCommand(std::move(GroupCountingByNameCommand::make(io, collectionManager)),
                                "group_counting_by_name");
-    commandManager->addCommand(std::make_unique<FilterLessThanHeightCommand>(io, collectionManager),
+    commandManager->addCommand(std::move(FilterLessThanHeightCommand::make(io, collectionManager)),
                                "filter_less_than_height");
     commandManager->addCommand(
-        std::make_unique<PrintFieldAscengroupCountingByNamedingNationalityCommand>(
-            io, collectionManager),
+        std::move(
+            PrintFieldAscengroupCountingByNamedingNationalityCommand::make(io, collectionManager)),
         "print_field_ascending_nationality");
 
     return std::move(commandManager);
@@ -69,8 +68,7 @@ std::shared_ptr<CollectionService> Program::initialCollectionManager(std::filesy
     return std::make_shared<CollectionManager>(collectionSerializer);
 }
 
-std::shared_ptr<IOInterface> Program::initialIO()
+std::shared_ptr<IOManager> Program::initialIO()
 {
-    return std::make_shared<IOManager>(std::make_unique<ConsoleReader>(),
-                                       std::make_unique<ConsoleWrither>());
+    return std::make_shared<IOManager>(Reader::makeConsoleReader(), Writer::makeCinsoleWriter());
 }

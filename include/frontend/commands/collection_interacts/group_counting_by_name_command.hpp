@@ -9,11 +9,8 @@
  * количество элементов в каждой группе
  *
  */
-class GroupCountingByNameCommand : public Command {
+class GroupCountingByNameCommand {
 public:
-    std::shared_ptr<CollectionService> collectionService;
-
-    GroupCountingByNameCommand(std::shared_ptr<IOInterface> ioInterface,
-                               std::shared_ptr<CollectionService> collectionService);
-    void execute (std::vector<std::string> &args) override;
+    static Command make (std::shared_ptr<IOManager> ioInterface,
+                         std::shared_ptr<CollectionService> collectionService);
 };

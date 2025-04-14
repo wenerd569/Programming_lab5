@@ -8,10 +8,7 @@
  *
  */
 class HelpCommand : public Command {
-    const std::unordered_map<std::string, std::unique_ptr<Command>> &commands;
-
 public:
-    HelpCommand(std::shared_ptr<IOInterface> ioInterface,
-                const std::unordered_map<std::string, std::unique_ptr<Command>> &commands);
-    void execute (std::vector<std::string> &args) override;
+    static Command make (std::shared_ptr<IOManager> ioInterface,
+                         const std::unordered_map<std::string, Command> &commands);
 };
