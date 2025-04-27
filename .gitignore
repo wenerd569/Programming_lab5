@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+# Other
+cland_trace.json
+compile_commands.json
+CMakeUserPresets.json
+CMakeCache.txt
+
+# Folder
+build/
+out/
+.cache/
+docs/
