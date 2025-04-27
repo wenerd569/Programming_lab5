@@ -1,8 +1,8 @@
-
-#include "common/exeptions/program_terminate_exeption.hpp"
-#include "frontend/program.hpp"
+#include "backend/colection_manager.hpp"
+#include "backend/server.hpp"
+#include <boost/asio/io_context.hpp>
 #include <iostream>
-#include <ostream>
+#include <memory>
 
 int main (int argc, char *argv[])
 {
@@ -14,12 +14,10 @@ int main (int argc, char *argv[])
     }
     std::string fileName = argv[1];
     std::filesystem::path filePath = std::filesystem::path { fileName };
-    Program program = Program(filePath);
-    try {
-        program.start();
-    } catch ( ProgramTerminateException e ) {
-        std::cout << e.what() << std::endl;
-    } catch ( std::ios::failure e ) {
-        std::cout << e.what() << std::endl;
-    }
+    std::shared_ptr<CollectionManager> collectionManager = std::make_shared<CollectionManager>(
+        CollectionSerializer(filePath));
+
+    asio::io_context ioc { 1 };
+    Server server { ioc.get_executor(), 8081, collectionManager };
+    ioc.run();
 }

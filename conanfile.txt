@@ -1,6 +1,7 @@
 [requires]
 nlohmann_json/3.11.3
 magic_enum/0.9.7
+boost/1.87.0
 
 [generators]
 CMakeDeps

@@ -36,6 +36,6 @@ Reader Reader::makeFileReader(std::string fileName)
                         return line;
                     },
                     [file] () {
-                        return file->peek() == std::ifstream::traits_type::eof();
+                        return file->eof();
                     } };
 }

@@ -7,7 +7,7 @@
  * @brief exit : завершить программу (без сохранения в файл)
  *
  */
-class ExitCommand : public Command {
+class ExitCommand {
 public:
     static Command make (std::shared_ptr<IOManager> ioInterface);
 };

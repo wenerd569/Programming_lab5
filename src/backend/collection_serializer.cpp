@@ -9,8 +9,6 @@
 
 #include "backend/collection_serializer.hpp"
 
-using json = nlohmann::json;
-
 CollectionSerializer::CollectionSerializer(std::filesystem::path filePath)
     : filePath { std::move(filePath) }
 {

@@ -7,7 +7,7 @@
  * @brief help : вывести справку по доступным командам
  *
  */
-class HelpCommand : public Command {
+class HelpCommand {
 public:
     static Command make (std::shared_ptr<IOManager> ioInterface,
                          const std::unordered_map<std::string, Command> &commands);

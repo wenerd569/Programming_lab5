@@ -1,4 +1,5 @@
 #include "common/exeptions/program_terminate_exeption.hpp"
+#include "common/validators.hpp"
 #include <algorithm>
 #include <backend/colection_manager.hpp>
 #include <cmath>
@@ -46,13 +47,16 @@ CollectionInfo CollectionManager::configureInfo()
     return CollectionInfo(type, dateManager.getInitialDate(), persons.size(), idManager.getLast());
 }
 
-Response<CollectionInfo> CollectionManager::getInfo()
+Reqest<CollectionInfo> CollectionManager::getInfo()
 {
-    return Response<CollectionInfo>::success(std::move(configureInfo()));
+    return Reqest<CollectionInfo>::success(std::move(configureInfo()));
 }
 
 Response<void> CollectionManager::add(PersonPrecursor &prePerson)
 {
+    if ( Validator<PersonPrecursor>::validate(prePerson) == ValidatorStatusCode::Error ) {
+        return Response<void>::failure(Response<void>::FAIL);
+    }
     persons.push_back(createPerson(prePerson));
     return Response<void>::success();
 }
@@ -73,6 +77,9 @@ Response<void> CollectionManager::remove(long id)
 
 Response<void> CollectionManager::update(long id, PersonPrecursor &prePerson)
 {
+    if ( Validator<PersonPrecursor>::validate(prePerson) == ValidatorStatusCode::Error ) {
+        return Response<void>::failure(Response<void>::FAIL);
+    }
     for ( size_t i = 0; i < persons.size(); ++i ) {
         if ( persons[i].id == id ) {
             persons[i] = Person(prePerson, id, persons[i].creationDate);
@@ -121,6 +128,9 @@ Response<void> CollectionManager::inseartAt(size_t index, PersonPrecursor &prePe
 
 Response<void> CollectionManager::addIfMax(PersonPrecursor &prePerson)
 {
+    if ( Validator<PersonPrecursor>::validate(prePerson) == ValidatorStatusCode::Error ) {
+        return Response<void>::failure(Response<void>::FAIL);
+    }
     double max = -1;
     for ( size_t i = 0; i < persons.size(); ++i ) {
         max = std::max(persons[i].height, max);
@@ -135,6 +145,9 @@ Response<void> CollectionManager::addIfMax(PersonPrecursor &prePerson)
 
 Response<void> CollectionManager::addIfMin(PersonPrecursor &prePerson)
 {
+    if ( Validator<PersonPrecursor>::validate(prePerson) == ValidatorStatusCode::Error ) {
+        return Response<void>::failure(Response<void>::FAIL);
+    }
     double min = std::numeric_limits<double>::max();
     for ( size_t i = 0; i < persons.size(); ++i ) {
         min = std::min(persons[i].height, min);
@@ -147,15 +160,15 @@ Response<void> CollectionManager::addIfMin(PersonPrecursor &prePerson)
     return Response<void>::failure(Response<void>::FAIL);
 }
 
-Response<std::vector<Person>> CollectionManager::getAllElement()
+Reqest<std::vector<Person>> CollectionManager::getAllElement()
 {
     if ( persons.empty() ) {
-        return Response<std::vector<Person>>::failure(Response<std::vector<Person>>::NULL_RESULT);
+        return Reqest<std::vector<Person>>::failure(Reqest<std::vector<Person>>::NULL_RESULT);
     }
-    return Response<std::vector<Person>>::success(persons);
+    return Reqest<std::vector<Person>>::success(persons);
 }
 
-Response<std::vector<Person>> CollectionManager::getHeightLessElement(double height)
+Reqest<std::vector<Person>> CollectionManager::getHeightLessElement(double height)
 {
     std::vector<Person> res = std::vector<Person>();
     for ( size_t i = 0; i < persons.size(); ++i ) {
@@ -164,12 +177,12 @@ Response<std::vector<Person>> CollectionManager::getHeightLessElement(double hei
         }
     }
     if ( res.empty() ) {
-        return Response<std::vector<Person>>::failure(Response<std::vector<Person>>::NULL_RESULT);
+        return Reqest<std::vector<Person>>::failure(Reqest<std::vector<Person>>::NULL_RESULT);
     }
-    return Response<std::vector<Person>>::success(res);
+    return Reqest<std::vector<Person>>::success(res);
 }
 
-Response<std::map<std::string, int>> CollectionManager::groupCountingByName()
+Reqest<std::map<std::string, int>> CollectionManager::groupCountingByName()
 {
     std::map<std::string, int> res = std::map<std::string, int>();
 
@@ -181,18 +194,18 @@ Response<std::map<std::string, int>> CollectionManager::groupCountingByName()
         }
     }
     if ( res.empty() ) {
-        return Response<std::map<std::string, int>>::failure(
-            Response<std::map<std::string, int>>::NULL_RESULT);
+        return Reqest<std::map<std::string, int>>::failure(
+            Reqest<std::map<std::string, int>>::NULL_RESULT);
     }
-    return Response<std::map<std::string, int>>::success(res);
+    return Reqest<std::map<std::string, int>>::success(res);
 }
 
-Response<std::map<long, Country>> CollectionManager::getFieldAscendingNationality()
+Reqest<std::map<long, Country>> CollectionManager::getFieldAscendingNationality()
 {
     std::map<long, Country> res = std::map<long, Country>();
 
     for ( int i = 0; i < persons.size(); i++ ) {
         res[persons[i].id] = persons[i].nationality;
     }
-    return Response<std::map<long, Country>>::success(res);
+    return Reqest<std::map<long, Country>>::success(res);
 }

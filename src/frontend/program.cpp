@@ -1,18 +1,12 @@
 
 #include "frontend/program.hpp"
 
-#include "backend/colection_manager.hpp"
+#include "backend/person_collection_command_handler.hpp"
 #include "frontend/commands/commands.hpp"
 #include "frontend/io_manager.hpp"
+#include <boost/asio/io_context.hpp>
 #include <memory>
 #include <string>
-
-Program::Program(std::filesystem::path filePath)
-{
-    collectionManager = initialCollectionManager(filePath);
-    io = initialIO();
-    commandManager = ititialCommandManager(collectionManager, io);
-}
 
 void Program::start()
 {
@@ -26,8 +20,8 @@ void Program::start()
 }
 
 std::unique_ptr<CommandManager>
-Program::ititialCommandManager(std::shared_ptr<CollectionService> collectionManager,
-                               std::shared_ptr<IOManager> io)
+ititialCommandManager (std::shared_ptr<CollectionService> collectionManager,
+                       std::shared_ptr<IOManager> io)
 {
     std::unique_ptr<CommandManager> commandManager = std::make_unique<CommandManager>();
 
@@ -62,13 +56,32 @@ Program::ititialCommandManager(std::shared_ptr<CollectionService> collectionMana
     return std::move(commandManager);
 }
 
-std::shared_ptr<CollectionService> Program::initialCollectionManager(std::filesystem::path filePath)
+std::shared_ptr<CollectionService>
+initialCollectionManager (asio::io_context::executor_type &ioc_executor,
+                          std::string addres,
+                          std::string port,
+                          std::string serverPath)
 {
-    CollectionSerializer collectionSerializer = CollectionSerializer { filePath };
-    return std::make_shared<CollectionManager>(collectionSerializer);
+    tcp::resolver resolver { ioc_executor };
+    auto const results = resolver.resolve(addres, port);
+    websocket::stream<tcp::socket> ws { ioc_executor };
+    auto ep = asio::connect(ws.next_layer(), results);
+
+    ws.handshake(addres, serverPath);
+    if ( ! ws.is_open() ) {
+        throw 1;
+    }
+    return std::make_shared<PersonCollectionClient>(std::move(ws));
 }
 
-std::shared_ptr<IOManager> Program::initialIO()
+std::shared_ptr<IOManager> initialIO ()
 {
     return std::make_shared<IOManager>(Reader::makeConsoleReader(), Writer::makeCinsoleWriter());
+}
+
+Program::Program(asio::io_context::executor_type &ioc_executor) : ioc_executor { ioc_executor }
+{
+    collectionManager = initialCollectionManager(ioc_executor, "127.0.0.1", "8003", "/");
+    io = initialIO();
+    commandManager = ititialCommandManager(collectionManager, io);
 }
